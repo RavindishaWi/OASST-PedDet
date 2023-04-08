@@ -11,6 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { RouterModule } from '@angular/router';
 
@@ -28,6 +30,8 @@ import { RouterModule } from '@angular/router';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    MatCheckboxModule,
+    MatFormFieldModule,
     RouterModule.forRoot([
       { path: 'model-selection', component: ModelSelectionComponent }
     ]),
