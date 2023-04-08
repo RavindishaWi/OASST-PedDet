@@ -15,13 +15,19 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { RouterModule } from '@angular/router';
+import { ImgVidSelectionComponent } from './img-vid-selection/img-vid-selection.component';
+import { PredictionResultsComponent } from './prediction-results/prediction-results.component';
+import { EvaluationResultsComponent } from './evaluation-results/evaluation-results.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ModelSelectionComponent,
     ModelTableComponent,
-    HomePageComponent
+    HomePageComponent,
+    ImgVidSelectionComponent,
+    PredictionResultsComponent,
+    EvaluationResultsComponent
   ],
   imports: [
     BrowserModule,
