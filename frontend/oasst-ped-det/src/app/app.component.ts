@@ -21,7 +21,4 @@ export class AppComponent {
     }, 3000);
   }
 
-  goToModelSelection() {
-    this.router.navigate(['/model-selection']);
-  }
 }

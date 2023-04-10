@@ -8,7 +8,6 @@
 .mat-table {
     overflow: auto;
     max-height: 500px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .mat-raised-button {
