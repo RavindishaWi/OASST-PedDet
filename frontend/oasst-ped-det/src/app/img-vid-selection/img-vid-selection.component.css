@@ -1,0 +1,18 @@
+.media-selection-container {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+}
+
+.media-file-container {
+    width: 100vw;
+    height: 60%;
+    background-color: aqua;
+}
+
+.file-upload-container {
+    width: 100vw;
+    height: 40%;
+    background-color: aquamarine;
+}

@@ -58,7 +58,7 @@
     </div>
   </div>
 
-  <div class="container" *ngIf="router.url !== '/model-selection' && !loader">
+  <div class="container" *ngIf="router.url !== '/model-selection' && router.url !== '/image-selection' && !loader">
     <app-home-page></app-home-page>
   </div>
 

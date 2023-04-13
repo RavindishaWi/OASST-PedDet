@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,6 +20,8 @@ import { ImgVidSelectionComponent } from './img-vid-selection/img-vid-selection.
 import { PredictionResultsComponent } from './prediction-results/prediction-results.component';
 import { EvaluationResultsComponent } from './evaluation-results/evaluation-results.component';
 import { LoaderPageComponent } from './loader-page/loader-page.component';
+import { MessageComponentComponent } from './message-component/message-component.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 
 @NgModule({
   declarations: [
@@ -29,10 +32,13 @@ import { LoaderPageComponent } from './loader-page/loader-page.component';
     ImgVidSelectionComponent,
     PredictionResultsComponent,
     EvaluationResultsComponent,
-    LoaderPageComponent
+    LoaderPageComponent,
+    MessageComponentComponent,
+    AdminLoginComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatTableModule,
@@ -42,7 +48,9 @@ import { LoaderPageComponent } from './loader-page/loader-page.component';
     MatFormFieldModule,
     RouterModule.forRoot([
       { path: 'model-selection', component: ModelSelectionComponent },
-      { path: 'image-selection', component: ImgVidSelectionComponent }
+      { path: 'image-selection', component: ImgVidSelectionComponent },
+      { path: 'evaluation-results', component: EvaluationResultsComponent },
+      { path: 'prediction-results', component: PredictionResultsComponent }
     ]),
   ],
   providers: [],
