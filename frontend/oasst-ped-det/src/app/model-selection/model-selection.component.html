@@ -3,11 +3,14 @@
         <h1>Model Table</h1>
 
         <li><a>Go Back</a></li>
-        <li><a routerLink="image-selection">Proceed</a></li>
+        
     </div>
-
     <div class="table-container">
         <!-- Model selection table -->
         <app-model-table></app-model-table>
     </div>
 </div>
+
+<button class="proceed" (click)="proceedToModelSelection()">Proceed</button>
+
+<router-outlet></router-outlet>

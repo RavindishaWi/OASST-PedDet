@@ -108,3 +108,7 @@
     color: #fff;
   }
   
+  .proceed {
+    position: absolute;
+    top: 40%;
+  }

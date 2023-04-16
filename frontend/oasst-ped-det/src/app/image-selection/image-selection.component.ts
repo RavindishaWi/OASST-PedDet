@@ -21,7 +21,7 @@ export class ImageSelectionComponent implements OnInit {
   isDragging = false;
   errorMessage: string | null = null;
 
-  constructor(private http: HttpClient, private toastr: ToastrService, private location: Location, private router: Router) { }
+  constructor(private router: Router, private http: HttpClient, private toastr: ToastrService, private location: Location) { }
 
   ngOnInit(): void {
     this.http.get<string[]>('http://127.0.0.1:5000/api/images').subscribe(urls => {
@@ -100,7 +100,7 @@ export class ImageSelectionComponent implements OnInit {
     this.isDragging = false;
   }
 
-  closeErrorMessage() {
+closeErrorMessage() {
   this.errorMessage = null;
 }
 
@@ -148,6 +148,11 @@ export class ImageSelectionComponent implements OnInit {
   
   goBack() {
     this.location.back();
-  }  
+  }
   
+  proceedToPrediction(): void {
+    console.log(this.selectedFiles); // add this line
+    this.router.navigate(['/prediction-results'], { queryParams: { selectedFiles: JSON.stringify(this.selectedFiles) } });
+  }    
+
 }

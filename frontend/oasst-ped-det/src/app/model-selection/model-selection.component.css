@@ -21,3 +21,8 @@
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.proceed {
+    position: absolute;
+    top: 90%;
+}

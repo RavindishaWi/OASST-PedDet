@@ -55,8 +55,8 @@ import { ImageSelectionComponent } from './image-selection/image-selection.compo
     RouterModule.forRoot([
       { path: 'model-selection', component: ModelSelectionComponent },
       { path: 'image-selection', component: ImageSelectionComponent },
-      { path: 'evaluation-results', component: EvaluationResultsComponent },
-      { path: 'prediction-results', component: PredictionResultsComponent }
+      // { path: 'prediction-results', component: PredictionResultsComponent},
+      { path: 'evaluation-results', component: EvaluationResultsComponent }
     ]),
   ],
   providers: [],
