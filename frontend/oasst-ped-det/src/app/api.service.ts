@@ -8,8 +8,8 @@ export class ApiService {
 
   constructor(private http: HttpClient) { }
 
-  sayHello() {
-    return this.http.get('http://127.0.0.1:5000/hello');
+  getModels() {
+    return this.http.get('http://127.0.0.1:5000/models');
   }
 
 }

@@ -1,51 +1,26 @@
 <div class="example-container mat-elevation-z8">  
-  <mat-table #table [dataSource]="dataSource" class="mat-table">
-
-    <!-- Checkbox Column -->
-    <ng-container matColumnDef="select">
-      <mat-header-cell *matHeaderCellDef>
-        <mat-checkbox (change)="$event ? masterToggle() : null"
-                      [checked]="selection.hasValue() && isAllSelected()"
-                      [indeterminate]="selection.hasValue() && !isAllSelected()">
-        </mat-checkbox>
-      </mat-header-cell>
-      <mat-cell *matCellDef="let row">
-        <mat-checkbox (click)="$event.stopPropagation()"
-                      (change)="$event ? selection.toggle(row) : null"
-                      [checked]="selection.isSelected(row)">
-        </mat-checkbox>
-      </mat-cell>
+  <mat-table [dataSource]="dataSource">
+    <!-- Define the columns for the table -->
+    <ng-container matColumnDef="modelId">
+      <mat-header-cell *matHeaderCellDef>Model ID</mat-header-cell>
+      <mat-cell *matCellDef="let model"> {{model.modelId}} </mat-cell>
     </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef>Model Name</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+    <ng-container matColumnDef="modelName">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let model"> {{model.modelName}} </mat-cell>
     </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
+    <ng-container matColumnDef="backbone">
       <mat-header-cell *matHeaderCellDef>Backbone</mat-header-cell>
-      <mat-cell *matCellDef="let element">{{element.weight}}</mat-cell>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <mat-header-cell *matHeaderCellDef>Model Details</mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <button class="mat-raised-button">Show Details</button>
-      </mat-cell>
-    </ng-container>
-
+      <mat-cell *matCellDef="let model"> {{model.backbone}} </mat-cell>
+    </ng-container>  
+    <!-- Display the data in the table -->
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"
-             (click)="selection.toggle(row)">
-    </mat-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 
   <!-- paginator -->
   <mat-paginator #paginator
-                 [pageSize]="6"
+                 [pageSize]="5"
                  [pageSizeOptions]="[5, 10, 20]">
   </mat-paginator>
 </div>
