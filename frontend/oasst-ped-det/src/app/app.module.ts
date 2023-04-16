@@ -23,7 +23,6 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { PredictionResultsComponent } from './prediction-results/prediction-results.component';
 import { EvaluationResultsComponent } from './evaluation-results/evaluation-results.component';
 import { LoaderPageComponent } from './loader-page/loader-page.component';
-import { MessageComponentComponent } from './message-component/message-component.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { ImageSelectionComponent } from './image-selection/image-selection.component';
 
@@ -36,7 +35,6 @@ import { ImageSelectionComponent } from './image-selection/image-selection.compo
     PredictionResultsComponent,
     EvaluationResultsComponent,
     LoaderPageComponent,
-    MessageComponentComponent,
     AdminLoginComponent,
     ImageSelectionComponent
   ],

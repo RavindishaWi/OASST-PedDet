@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-image-selection',
@@ -19,7 +21,7 @@ export class ImageSelectionComponent implements OnInit {
   isDragging = false;
   errorMessage: string | null = null;
 
-  constructor(private http: HttpClient, private toastr: ToastrService) { }
+  constructor(private http: HttpClient, private toastr: ToastrService, private location: Location, private router: Router) { }
 
   ngOnInit(): void {
     this.http.get<string[]>('http://127.0.0.1:5000/api/images').subscribe(urls => {
@@ -34,21 +36,28 @@ export class ImageSelectionComponent implements OnInit {
   files: { file: File, url: string }[] = [];
 
   onFileSelected(event: any): void {
-    const file = event.target.files[0];
-    if (file.type.match(/image\/*/) == null) {
-      this.toastr.error('Only image files are allowed.');
-      return;
-    }
-    this.errorMessage = '';
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = () => {
-      this.selectedFiles.push({
-        name: file.name,
-        url: reader.result as string
-      });
-    };
+  const file = event.target.files[0];
+  if (file.type.match(/image\/*/) == null) {
+    this.toastr.error('Only image files are allowed.');
+    return;
   }
+
+  if (this.selectedFiles.length >= 3) {
+    this.toastr.warning('You can upload a maximum of 3 images.');
+    return;
+  }
+
+  this.errorMessage = '';
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () => {
+    this.selectedFiles.push({
+      name: file.name,
+      url: reader.result as string
+    });
+  };
+}
+
 
   onFileDragOver(event: any): void {
     event.preventDefault();
@@ -72,6 +81,12 @@ export class ImageSelectionComponent implements OnInit {
         this.errorMessage = 'Only image files are allowed.';
         return;
       }
+
+      if (this.selectedFiles.length >= 3) {
+        this.toastr.warning('You can upload a maximum of 3 images.');
+        return;
+      }
+
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
@@ -107,8 +122,32 @@ export class ImageSelectionComponent implements OnInit {
     const index = this.selectedImages.indexOf(url);
     if (index === -1) {
       this.selectedImages.push(url);
+      const file = this.imageUrls.find(image => image === url);
+      // if (this.selectedImages.length >= 3) {
+      //   this.toastr.warning('You can select a maximum of 3 images.');
+      //   return;
+      // }
+      if (this.selectedFiles.length >= 3) {
+        this.toastr.warning('You can select a maximum of 3 images.');
+        return;
+      }
+      if (file) {
+        this.selectedFiles.push({
+          name: file.split('/').pop(),
+          url: file
+        });
+      }
     } else {
       this.selectedImages.splice(index, 1);
+      const selectedFileIndex = this.selectedFiles.findIndex(file => file.url === url);
+      if (selectedFileIndex !== -1) {
+        this.selectedFiles.splice(selectedFileIndex, 1);
+      }
     }
   }
+  
+  goBack() {
+    this.location.back();
+  }  
+  
 }

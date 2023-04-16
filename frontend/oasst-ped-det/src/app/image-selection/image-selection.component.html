@@ -7,17 +7,17 @@
     <div class="image-gallery-container">
         <!-- image gallery -->
         <div class="image-gallery">
-            <div *ngFor="let url of imageUrls | paginate: { itemsPerPage: 6, currentPage: page }">
-              <label>
-                <input type="checkbox" [checked]="selectedImages.includes(url)" (change)="toggleSelection(url)">
-                <img [src]="url" width="200" height="100" (click)="toggleSelection(url)">
-              </label>
-            </div>
+          <div *ngFor="let url of imageUrls | paginate: { itemsPerPage: 6, currentPage: page }">
+            <label [class.selected]="selectedImages.includes(url)">
+              <input type="checkbox" [checked]="selectedImages.includes(url)" (change)="toggleSelection(url)">
+              <img [src]="url" width="200" height="100" (click)="toggleSelection(url)">
+              <div class="checkmark"></div>
+            </label>
+          </div>
         </div>
         <pagination-controls (pageChange)="pageChanged($event)" previousLabel="Previous" nextLabel="Next"></pagination-controls>
-        <button>Submit</button>
     </div>
-
+      
     <!-- file upload section -->
     <div class="file-upload-container" (drop)="onFileDrop($event)" (dragover)="onFileDragOver($event)" (dragleave)="onFileDragLeave($event)">
         <div class="file-upload-text" [ngClass]="{'file-upload-hover': isDragging}">
@@ -42,12 +42,17 @@
 
     <div class="selected-content">
         <p>Here are the images you have uploaded</p>
+        <button class="back-button" (click)="goBack()">Go Back</button>
         <div class="file-preview-container" *ngIf="selectedFiles.length > 0">
-            <div *ngFor="let file of selectedFiles" class="file-preview">
+            <div *ngFor="let file of selectedFiles; let i = index" class="file-preview">
               <img [src]="file.url" alt="Preview" width="200" height="100">
               <div>{{ file.name }}</div>
             </div>
         </div>
+          
+        <div *ngIf="selectedFiles.length > 0" class="alert alert-success" role="alert">
+            Successfully defined the images!
+        </div>          
         <div class="error-message" *ngIf="errorMessage">
             <p>{{ errorMessage }}</p>
             <button class="close-button" (click)="closeErrorMessage()">X</button>
