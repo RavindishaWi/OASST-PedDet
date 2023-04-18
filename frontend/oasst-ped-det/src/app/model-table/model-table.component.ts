@@ -32,7 +32,7 @@ export class ModelTableComponent {
 
   ngOnInit() {
     this.fetchData();
-    this.http.get<Model[]>('/api/models').subscribe(models => {
+    this.http.get<Model[]>('http://127.0.0.1:5000/models').subscribe(models => {
       this.dataSource.data = models;
     });
   }
