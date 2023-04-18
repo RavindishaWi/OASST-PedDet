@@ -1,11 +1,16 @@
 <div class="model-container">
     <div class="header-container">
         <h1>Model Table</h1>
-        <button class="proceed-button">Proceed</button>
-    </div>
 
+        <li><a>Go Back</a></li>
+        
+    </div>
     <div class="table-container">
         <!-- Model selection table -->
         <app-model-table></app-model-table>
     </div>
 </div>
+
+<button class="proceed" (click)="proceedToModelSelection()">Proceed</button>
+
+<router-outlet></router-outlet>

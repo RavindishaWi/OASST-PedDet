@@ -1,1 +1,27 @@
-<p>evaluation-results works!</p>
+<div class="example-container mat-elevation-z8">  
+    <mat-table #table [dataSource]="dataSource" class="mat-table">
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>Model Name</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.name}}</mat-cell>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <mat-header-cell *matHeaderCellDef>Backbone</mat-header-cell>
+        <mat-cell *matCellDef="let element">{{element.weight}}</mat-cell>
+      </ng-container>
+  
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="symbol">
+        <mat-header-cell *matHeaderCellDef>Model Details</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button class="mat-raised-button">Show Details</button>
+        </mat-cell>
+      </ng-container>
+  
+    </mat-table>
+
+</div>
+  

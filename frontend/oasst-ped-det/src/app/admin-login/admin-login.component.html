@@ -1,0 +1,15 @@
+<!-- admin login dialog box -->
+<h2 mat-dialog-title>Admin Login</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <input matInput placeholder="Email" [(ngModel)]="email">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Password" [(ngModel)]="password">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-button (click)="onLoginClick()">Login</button>
+</mat-dialog-actions>
+
