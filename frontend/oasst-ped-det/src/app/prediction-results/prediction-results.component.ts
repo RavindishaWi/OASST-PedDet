@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -9,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class PredictionResultsComponent {
   selectedFiles: any[] = [];
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
+  constructor(private route: ActivatedRoute, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -19,5 +20,15 @@ export class PredictionResultsComponent {
       }
     });
   }
+
+  // Define a function to send an HTTP POST request to the Flask backend
+predictImages(images: File[]) {
+  const url = 'http://myflaskbackend.com/predict';
+  const formData = new FormData();
+  for (const image of images) {
+    formData.append('image', image);
+  }
+  return this.http.post(url, formData);
+}
   
 }

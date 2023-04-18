@@ -25,6 +25,7 @@ import { EvaluationResultsComponent } from './evaluation-results/evaluation-resu
 import { LoaderPageComponent } from './loader-page/loader-page.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { ImageSelectionComponent } from './image-selection/image-selection.component';
+import { ModelDetailsComponent } from './model-details/model-details.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ImageSelectionComponent } from './image-selection/image-selection.compo
     EvaluationResultsComponent,
     LoaderPageComponent,
     AdminLoginComponent,
-    ImageSelectionComponent
+    ImageSelectionComponent,
+    ModelDetailsComponent
   ],
   imports: [
     BrowserModule,

@@ -3,11 +3,13 @@ import { Component, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { HttpClient } from '@angular/common/http';
+import { Router, ActivatedRoute } from '@angular/router';
 
 export interface Model {
   modelId: string;
   modelName: string;
   backbone: string;
+  description: string;
 }
 
 @Component({
@@ -23,13 +25,16 @@ export class ModelTableComponent {
   // @ViewChild(MatPaginator)
   // paginator!: MatPaginator;
 
-  displayedColumns: string[] = ['modelId', 'modelName', 'backbone'];
+  displayedColumns: string[] = ['modelId', 'modelName', 'backbone', 'description'];
   dataSource = new MatTableDataSource<Model>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
     this.fetchData();
+    this.http.get<Model[]>('/api/models').subscribe(models => {
+      this.dataSource.data = models;
+    });
   }
 
   fetchData() {
@@ -40,6 +45,10 @@ export class ModelTableComponent {
         console.log(this.dataSource.data,'2');
       }
     );
+  }
+
+  showDetails(model: any) {
+    this.router.navigate(['/model-selection', model.modelName]);
   }
 
   /**
