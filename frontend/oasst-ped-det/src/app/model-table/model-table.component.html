@@ -1,6 +1,21 @@
 <div class="example-container mat-elevation-z8">  
   <mat-table [dataSource]="dataSource">
     <!-- Define the columns for the table -->
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
     <ng-container matColumnDef="modelId">
       <mat-header-cell *matHeaderCellDef>Model ID</mat-header-cell>
       <mat-cell *matCellDef="let model"> {{model.modelId}} </mat-cell>

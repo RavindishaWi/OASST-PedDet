@@ -15,6 +15,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggle, MatButtonToggleModule } from '@angular/material/button-toggle';
 
 import { RouterModule } from '@angular/router';
 import { ModelSelectionComponent } from './model-selection/model-selection.component';
@@ -26,6 +28,10 @@ import { LoaderPageComponent } from './loader-page/loader-page.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { ImageSelectionComponent } from './image-selection/image-selection.component';
 import { ModelDetailsComponent } from './model-details/model-details.component';
+
+import {
+
+} from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -46,12 +52,14 @@ import { ModelDetailsComponent } from './model-details/model-details.component';
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
+    MatCheckboxModule,
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatCheckboxModule,
     MatFormFieldModule,
     MatDialogModule,
+    MatButtonModule,
+    MatButtonToggleModule,
     NgxPaginationModule,
     ToastrModule.forRoot(),
     RouterModule.forRoot([
