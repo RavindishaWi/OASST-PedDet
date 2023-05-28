@@ -1,23 +1,24 @@
 <!-- image selection component -->
 <div class="image-selection-container">
     <div class="header-container">
-        <h1>Image Selection</h1>
         <p>Define the images you want to test</p>
     </div>
+
+    <!-- image gallery container -->
     <div class="image-gallery-container">
         <!-- image gallery -->
         <div class="image-gallery">
-          <div *ngFor="let url of imageUrls | paginate: { itemsPerPage: 6, currentPage: page }">
-            <label [class.selected]="selectedImages.includes(url)">
-              <input type="checkbox" [checked]="selectedImages.includes(url)" (change)="toggleSelection(url)">
-              <img [src]="url" width="200" height="100" (click)="toggleSelection(url)" alt="image">
-              <div class="checkmark"></div>
-            </label>
-          </div>
+            <div *ngFor="let url of imageUrls | paginate: { itemsPerPage: 12, currentPage: page }">
+                <label [class.selected]="selectedImages.includes(url)">
+                    <img [src]="url" width="200" height="100" (click)="toggleSelection(url)" alt="image">
+                    <div class="checkmark" *ngIf="selectedImages.includes(url) && selectedImages.indexOf(url) < 3"></div>
+                </label>
+            </div>
         </div>
-        <pagination-controls (pageChange)="pageChanged($event)" previousLabel="Previous" nextLabel="Next"></pagination-controls>
+        <!-- paginator -->
+        <pagination-controls class="paginator" (pageChange)="pageChanged($event)" previousLabel="Previous" nextLabel="Next"></pagination-controls>
     </div>
-      
+
     <!-- file upload section -->
     <div class="file-upload-container" (drop)="onFileDrop($event)" (dragover)="onFileDragOver($event)" (dragleave)="onFileDragLeave($event)">
         <div class="file-upload-text" [ngClass]="{'file-upload-hover': isDragging}">
@@ -39,6 +40,7 @@
         </div>
     </div>
 
+    <!-- selected image container -->
     <div class="selected-content">
         <p>Here are the images you have uploaded</p>
         <div class="file-preview-container" *ngIf="selectedFiles.length > 0">
@@ -51,13 +53,14 @@
         <div *ngIf="selectedFiles.length > 0" class="alert alert-success" role="alert">
             Successfully defined the images!
         </div>
-        <div class="error-message" *ngIf="errorMessage">
+        <div class="error-message" *ngIf="errorMessage && selectedImages.length > 3">
             <p>{{ errorMessage }}</p>
             <button class="close-button" (click)="closeErrorMessage()">X</button>
         </div>
     </div>
-    <button class="back-button" (click)="goBack()">Go Back</button>
-    <button class="proceed" (click)="proceedToPrediction()">Prediction Results</button>
+    <!-- buttons -->
+    <!-- <button class="back-button" (click)="goBack()">Go Back</button>
+    <button class="proceed" (click)="proceedToPrediction()">Proceed</button> -->
 </div>
 
 <router-outlet></router-outlet>

@@ -1,25 +1,98 @@
-.image-selection-container {
-    z-index: -1;
+.header-container {
+  z-index: -1;
+  width: 100vw;
+  height: 35px;
+  background-color: hotpink;
+  position: absolute;
+  top: 12%;
+  color: aliceblue;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.paginator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 .image-gallery-container {
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-top: 10%;
-    
-    /* height: 60%;
-    background-color: rgb(218, 255, 237); */
+  width: 96%;
+  height: 40%;
+  display: flex;
+  justify-content: center;
+  
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.selected-content {
+  width: 96%;
+  top: 800px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .image-gallery {
-    width: 100vw;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    background-color: rgb(215, 254, 221);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* align-items: center; */
+
+  width: 96%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.image-gallery img {
+  padding: 10px 10px 10px 10px;
+}
+
+.pagination {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.file-upload-container {
+  position: absolute;
+  left: 50%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+  width: 96%;
+  height: 30%;
+  background-color: rgb(240, 240, 240);
+  border: 2px dashed rgb(164, 164, 164);
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 6px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .image-gallery label {
@@ -40,22 +113,6 @@
     width: 100vw;
     height: 40%;
     background-color: antiquewhite;
-}
-
-.file-upload-container {
-
-    position: absolute;
-    left: 50%;
-    top: 60%;
-    transform: translate(-50%, -50%);
-    width: 90vw;
-    height: 30%;
-    background-color: rgb(240, 240, 240);
-    border: 2px dashed rgb(164, 164, 164);
-    padding: 4px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .dropzone {

@@ -17,6 +17,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggle, MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatIconModule } from '@angular/material/icon';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { RouterModule } from '@angular/router';
 import { ModelSelectionComponent } from './model-selection/model-selection.component';
@@ -32,6 +34,7 @@ import { ModelDetailsComponent } from './model-details/model-details.component';
 import {
 
 } from '@angular/material';
+import { SliderComponent } from './slider/slider.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,8 @@ import {
     LoaderPageComponent,
     AdminLoginComponent,
     ImageSelectionComponent,
-    ModelDetailsComponent
+    ModelDetailsComponent,
+    SliderComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +64,8 @@ import {
     MatDialogModule,
     MatButtonModule,
     MatButtonToggleModule,
+    MatIconModule,
+    MatToolbarModule,
     NgxPaginationModule,
     ToastrModule.forRoot(),
     RouterModule.forRoot([

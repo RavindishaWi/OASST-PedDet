@@ -1,28 +1,21 @@
+/* Structure */
 .example-container {
-    display: flex;
-    flex-direction: column;
-    max-height: 500px;
-    min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  min-width: 300px;
 }
-  
+
+.example-header {
+  min-height: 64px;
+  padding: 8px 24px 0;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
 .mat-table {
-    overflow: auto;
-    max-height: 500px;
-}
-
-.mat-raised-button {
-    display: inline-block;
-    padding: 6px 15px;
-    text-align: center;
-    text-decoration: none;
-    background-color: #200483;
-    color: #fff;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.mat-column-select {
-    overflow: visible;
+  overflow: auto;
+  max-height: 500px;
 }

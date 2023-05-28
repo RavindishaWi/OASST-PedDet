@@ -29,6 +29,7 @@ export class ImageSelectionComponent implements OnInit {
     });
   }
 
+  //paginator controls
   pageChanged(event: any): void {
     this.page = event;
   }
@@ -36,27 +37,27 @@ export class ImageSelectionComponent implements OnInit {
   files: { file: File, url: string }[] = [];
 
   onFileSelected(event: any): void {
-  const file = event.target.files[0];
-  if (file.type.match(/image\/*/) == null) {
-    this.toastr.error('Only image files are allowed.');
-    return;
-  }
+    const file = event.target.files[0];
+    if (file.type.match(/image\/*/) == null) {
+      this.toastr.error('Only image files are allowed.');
+      return;
+    }
 
-  if (this.selectedFiles.length >= 3) {
-    this.toastr.warning('You can upload a maximum of 3 images.');
-    return;
-  }
+    if (this.selectedFiles.length >= 3) {
+      this.toastr.warning('You can upload a maximum of 3 images.');
+      return;
+    }
 
-  this.errorMessage = '';
-  const reader = new FileReader();
-  reader.readAsDataURL(file);
-  reader.onload = () => {
-    this.selectedFiles.push({
-      name: file.name,
-      url: reader.result as string
-    });
-  };
-}
+    this.errorMessage = '';
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      this.selectedFiles.push({
+        name: file.name,
+        url: reader.result as string
+      });
+    };
+  }
 
 
   onFileDragOver(event: any): void {
@@ -100,9 +101,9 @@ export class ImageSelectionComponent implements OnInit {
     this.isDragging = false;
   }
 
-closeErrorMessage() {
-  this.errorMessage = null;
-}
+  closeErrorMessage() {
+    this.errorMessage = null;
+  }
 
   async getFileUrl(file: File): Promise<string> {
       const reader = new FileReader();
@@ -119,33 +120,37 @@ closeErrorMessage() {
   }
 
   toggleSelection(url: string) {
-    const index = this.selectedImages.indexOf(url);
-    if (index === -1) {
-      this.selectedImages.push(url);
-      const file = this.imageUrls.find(image => image === url);
-      // if (this.selectedImages.length >= 3) {
-      //   this.toastr.warning('You can select a maximum of 3 images.');
-      //   return;
-      // }
-      if (this.selectedFiles.length >= 3) {
-        this.toastr.warning('You can select a maximum of 3 images.');
-        return;
-      }
-      if (file) {
-        this.selectedFiles.push({
-          name: file.split('/').pop(),
-          url: file
+      const index = this.selectedImages.indexOf(url);
+      if (index === -1 && this.selectedImages.length < 3) {
+          // image is not already selected and less than 3 images are selected
+          this.selectedImages.push(url);
+          const file = this.imageUrls.find(image => image === url);
+          if (file) {
+              this.selectedFiles.push({
+                  name: file.split('/').pop(),
+                  url: file
+              });
+          }
+      } else if (index !== -1) {
+          // image is already selected, remove it from the selectedImages array
+          this.selectedImages.splice(index, 1);
+          const selectedFileIndex = this.selectedFiles.findIndex(file => file.url === url);
+          if (selectedFileIndex !== -1) {
+              this.selectedFiles.splice(selectedFileIndex, 1);
+          }
+      } else {
+          // image is not added when more than 3 images are already selected
+          this.toastr.warning('You can select a maximum of 3 images.', '', {
+            closeButton: true,
+            progressBar: true,
+            timeOut: 5000,
+            extendedTimeOut: 2000,
+            positionClass: 'toast-top-right',
+            toastClass: 'custom-toastr warning' // apply the custom CSS class to the toastr
         });
       }
-    } else {
-      this.selectedImages.splice(index, 1);
-      const selectedFileIndex = this.selectedFiles.findIndex(file => file.url === url);
-      if (selectedFileIndex !== -1) {
-        this.selectedFiles.splice(selectedFileIndex, 1);
-      }
-    }
   }
-  
+
   goBack() {
     this.location.back();
   }

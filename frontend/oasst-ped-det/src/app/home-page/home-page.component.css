@@ -2,3 +2,31 @@
     position: absolute;
     top: 30%;
 }
+
+.e {
+    position: absolute;
+    bottom: 0;
+    height: 30%;
+    width: 100vw;
+    background-color: #1d2025;
+}
+
+h1 {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    color: #607D8B;
+    font-size: 60px;
+    font-family: 'Custom Font', sans-serif;
+}
+
+.bounding-box {
+    position: absolute;
+    top: 30%;
+    right: 40%;
+    z-index: 1;
+    width: 170px;
+    height: 350px;
+    border: 2px solid rgb(6, 161, 3);
+}
+  
