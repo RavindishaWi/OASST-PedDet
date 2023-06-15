@@ -23,9 +23,11 @@ export class AppComponent implements OnInit {
     }, 0);
   }
 
-  openAdminLogin() {
+  // admin login
+  openAdminLoginDialog() {
     const dialogRef = this.dialog.open(AdminLoginComponent, {
-      width: '250px'
+      width: '450px',
+      disableClose: true // disable the default close behavior
     });
 
     dialogRef.afterClosed().subscribe(result => {

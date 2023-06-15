@@ -4,6 +4,7 @@ import { ImageSelectionComponent } from './image-selection/image-selection.compo
 import { PredictionResultsComponent } from './prediction-results/prediction-results.component';
 import { ModelSelectionComponent } from './model-selection/model-selection.component';
 import { ModelDetailsComponent } from './model-details/model-details.component';
+import { AdminLoginComponent } from './admin-login/admin-login.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: '/home-page', pathMatch: 'full' },

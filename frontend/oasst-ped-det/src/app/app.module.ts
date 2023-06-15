@@ -9,6 +9,10 @@ import { FormsModule } from '@angular/forms';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { ToastrModule } from 'ngx-toastr';
 
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { firebaseConfig } from './firebase.config';
+
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
@@ -16,9 +20,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { MatButtonToggle, MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatInputModule } from '@angular/material/input';
 
 import { RouterModule } from '@angular/router';
 import { ModelSelectionComponent } from './model-selection/model-selection.component';
@@ -31,9 +36,6 @@ import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { ImageSelectionComponent } from './image-selection/image-selection.component';
 import { ModelDetailsComponent } from './model-details/model-details.component';
 
-import {
-
-} from '@angular/material';
 import { SliderComponent } from './slider/slider.component';
 
 @NgModule({
@@ -65,13 +67,15 @@ import { SliderComponent } from './slider/slider.component';
     MatButtonModule,
     MatButtonToggleModule,
     MatIconModule,
+    MatInputModule,
     MatToolbarModule,
     NgxPaginationModule,
+    AngularFireAuthModule,
+    AngularFireModule.initializeApp(firebaseConfig),
     ToastrModule.forRoot(),
     RouterModule.forRoot([
       { path: 'model-selection', component: ModelSelectionComponent },
       { path: 'image-selection', component: ImageSelectionComponent },
-      // { path: 'prediction-results', component: PredictionResultsComponent},
       { path: 'evaluation-results', component: EvaluationResultsComponent }
     ]),
   ],

@@ -9,19 +9,6 @@
   <input type="hidden" #selection>
 
   <!-- Toolbar -->
-  <div class="toolbar" role="banner" *ngIf="!loader">
-    <!-- Logo -->
-    <!-- <img
-      width="40"
-      alt="Logo"
-      src="../assets/images/hennessy-symbol.jpg"
-    /> -->
-    <div class="spacer"></div>
-
-    <div class="hamburger-icon"></div>
-  </div>
-
-  <!-- Toolbar -->
   <div class="floating-toolbar">
     <mat-toolbar color="primary" class="custom-toolbar">
       <span>My Toolbar</span>
@@ -30,28 +17,34 @@
         <a mat-button href="/evaluation">Evaluation</a>
       </div>
       <span class="example-spacer"></span>
+
+      <!--  -->
       <div class="right-icons">
+        <!-- Notifications -->
         <button mat-icon-button>
           <mat-icon>notifications</mat-icon>
         </button>
-        <a mat-button href="https://github.com/">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="30" height="25">
-            <path d="M12 0a12 12 0 0 0-3.8 23.29c.6.11.82-.26.82-.58l-.01-1.99c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.72.08-.72,1.21.08 1.85 1.25 1.85 1.25,1.08 1.85 2.84 1.31 3.53 1,.11-.78.42-1.31.76-1.61-2.67-.31-5.46-1.34-5.46-6a4.83 4.83 0 0 1 1.29-3.34 4.49 4.49 0 0 1 .12-3.29s1-.33 3.3 1.27a11.91 11.91 0 0 1 6.32 0c2.28-1.6 3.29-1.27 3.29-1.27a4.49 4.49 0 0 1 .12 3.29 4.83 4.83 0 0 1 1.28 3.34c0 4.7-2.8 5.7-5.47 6 .43.38.81 1.13.81 2.28v3.38c0 .32.21.7.83.58A12 12 0 0 0 12 0z"
-            fill="#fff"/>
+        <!-- GitHub link to the project code -->
+        <a mat-icon-button href="https://github.com/RavindishaWi/OASST-PedDet" target="_blank">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#fff">
+            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
           </svg>
         </a>
-        <a mat-button href="https://www.youtube.com/">
-          <svg id="youtube-logo" height="28" width="28" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff">
+        <!-- YouTube video link -->
+        <a mat-icon-button href="https://www.youtube.com/" target="_blank">
+          <svg id="youtube-logo" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff">
             <path d="M0 0h24v24H0V0z" fill="none"/>
             <path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z"/>
           </svg>
         </a>
-        <button mat-icon-button>
+        <!-- admin login -->
+        <button mat-icon-button (click)="openAdminLoginDialog()">
           <mat-icon>account_circle</mat-icon>
         </button>
       </div>
+      
     </mat-toolbar>
-  </div>
+  </div>  
 
   <div class="container" *ngIf="router.url !== '/model-selection' &&
   router.url !== '/image-selection' &&

@@ -38,6 +38,10 @@
   height: 90px;
 }
 
+.floating-toolbar .right-icons a.mat-button svg,
+.floating-toolbar .right-icons button.mat-icon-button mat-icon {
+  vertical-align: middle;
+}
 
 @media (max-width: 768px) {
   .toolbar {
@@ -68,26 +72,6 @@
       display: block;
     }
   }
-
-  /* add styles for the hamburger icon */
-  .hamburger-icon {
-    display: none; /* hide the icon by default */
-    cursor: pointer;
-    padding: 10px;
-    background-color: #f2f2f2;
-  }
-
-  .hamburger-icon svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  /* toggle the visibility of the links container on click */
-  .hamburger-icon.active + .links-container {
-    display: block;
-  }
-
-
 
     h1,
     h2,
