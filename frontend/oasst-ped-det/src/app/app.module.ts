@@ -37,6 +37,9 @@ import { ImageSelectionComponent } from './image-selection/image-selection.compo
 import { ModelDetailsComponent } from './model-details/model-details.component';
 
 import { SliderComponent } from './slider/slider.component';
+import { AboutComponent } from './about/about.component';
+
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -50,7 +53,8 @@ import { SliderComponent } from './slider/slider.component';
     AdminLoginComponent,
     ImageSelectionComponent,
     ModelDetailsComponent,
-    SliderComponent
+    SliderComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,
@@ -71,6 +75,7 @@ import { SliderComponent } from './slider/slider.component';
     MatToolbarModule,
     NgxPaginationModule,
     AngularFireAuthModule,
+    FlexLayoutModule,
     AngularFireModule.initializeApp(firebaseConfig),
     ToastrModule.forRoot(),
     RouterModule.forRoot([

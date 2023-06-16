@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HomePageComponent } from './home-page.component';
 
 describe('HomePageComponent', () => {
@@ -17,7 +16,7 @@ describe('HomePageComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create HomePageComponent', () => {
     expect(component).toBeTruthy();
   });
 });

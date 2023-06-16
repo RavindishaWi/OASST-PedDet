@@ -17,7 +17,7 @@ describe('AdminLoginComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create AdminLoginComponent', () => {
     expect(component).toBeTruthy();
   });
 });
