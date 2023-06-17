@@ -9,6 +9,9 @@ export class HomePageComponent implements OnInit {
   @ViewChild('videoElement')
   videoElement!: ElementRef;
   square!: HTMLElement;
+  public squareStyles: { [key: string]: string } = {};
+  public isButtonHovered: boolean = false;
+  isHovered = false;
 
   constructor(private elementRef: ElementRef) {}
 
@@ -32,5 +35,13 @@ export class HomePageComponent implements OnInit {
     const mouseY = event.clientY - containerY;
 
     this.square.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+  }
+
+  resizeSquare() {
+    this.isHovered = true;
+  }
+
+  resetSquare() {
+    this.isHovered = false;
   }
 }
