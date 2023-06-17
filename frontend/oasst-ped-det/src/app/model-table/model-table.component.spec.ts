@@ -17,7 +17,7 @@ describe('ModelTableComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create ModelTableComponent', () => {
     expect(component).toBeTruthy();
   });
 });

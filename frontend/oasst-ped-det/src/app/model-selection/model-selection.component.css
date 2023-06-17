@@ -1,9 +1,8 @@
 .model-container {
-    position: absolute;
     width: 100vw;
     height: 100vh;
     z-index: -1;
-    background-color: #f4f4f9;
+    background-color: #f4f4f4;
 }
 
 .header-container {
@@ -17,12 +16,30 @@
 .table-container {
     width: 85vw;
     position: absolute;
-    top: 60%;
+    top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
 
-.proceed {
+.button-container {
     position: absolute;
-    top: 90%;
+    top: 90px;
+    left: 0;
+}
+
+.mat-button {
+    font-size: 16px;
+    padding: 12px 24px;
+    text-transform: uppercase;
+    margin: 10px;
+}
+
+.back-button {
+    color: white;
+    background-color: rgb(76, 72, 137);
+}
+
+.proceed-button {
+    color: white;
+    background-color: rgb(76, 72, 137);
 }

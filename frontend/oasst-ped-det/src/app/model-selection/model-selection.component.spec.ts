@@ -17,7 +17,7 @@ describe('ModelSelectionComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create ModelSelectionComponent', () => {
     expect(component).toBeTruthy();
   });
 });

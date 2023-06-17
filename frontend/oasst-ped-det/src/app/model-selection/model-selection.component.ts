@@ -10,6 +10,7 @@ export class ModelSelectionComponent {
 
   constructor(private router: Router) { }
 
+  // navigate to image selection page
   proceedToModelSelection(): void {
     this.router.navigate(['/image-selection']);
   }
