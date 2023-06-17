@@ -17,6 +17,7 @@
 }
 
 .logo-container {
+  cursor: pointer;
   padding-left: 15px;
 }
 
@@ -65,6 +66,11 @@
 
 .right-icons {
   margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  height: 100%;
 }
 
 .transparent-toolbar {
@@ -73,8 +79,7 @@
 
 .right-icons button,
 .right-icons a {
-  margin-right: 8px;
-  font-size: 30px;
+  margin-right: 10px;
 }
 
 .custom-toolbar {

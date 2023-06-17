@@ -145,8 +145,7 @@ export class ImageSelectionComponent implements OnInit {
             progressBar: true,
             timeOut: 5000,
             extendedTimeOut: 2000,
-            positionClass: 'toast-top-right',
-            toastClass: 'custom-toastr warning' // apply the custom CSS class to the toastr
+            positionClass: 'toast-bottom-right'
         });
       }
   }

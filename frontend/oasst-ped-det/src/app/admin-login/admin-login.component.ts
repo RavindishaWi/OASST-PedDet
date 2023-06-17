@@ -31,7 +31,12 @@ export class AdminLoginComponent implements OnInit {
         var user = userCredential.user;
         // Send user.getIdToken to server for verification
         // ...
-        this.toastr.success('Login successful', 'Success');
+        this.toastr.success('Login successful', 'Success', {
+          timeOut: 5000, // Set the duration of the toastr notification
+          progressBar: true, // Display a progress bar
+          closeButton: true, // Display a close button
+          positionClass: 'toast-bottom-right', // Set the position of the toastr notification
+        });
         this.dialogRef.close();
       })
       .catch((error) => {

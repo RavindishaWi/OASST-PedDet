@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 
 @Component({
   selector: 'app-root',
@@ -33,6 +33,10 @@ export class AppComponent implements OnInit {
     });
   }
 
+  navigateHome() {
+    this.router.navigate(['/']);
+  }
+
   toggleMenu() {
     this.isToolbarShrunk = !this.isToolbarShrunk;
   }
@@ -44,7 +48,7 @@ export class AppComponent implements OnInit {
 
   // admin login
   openAdminLoginDialog() {
-    const dialogRef = this.dialog.open(AdminLoginComponent, {
+    const dialogRef = this.dialog.open(AdminProfileComponent, {
       width: '450px',
       disableClose: true // disable the default close behavior
     });

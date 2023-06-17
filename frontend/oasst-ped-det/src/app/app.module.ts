@@ -40,6 +40,8 @@ import { SliderComponent } from './slider/slider.component';
 import { AboutComponent } from './about/about.component';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SubHeadingComponent } from './sub-heading/sub-heading.component';
+import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ImageSelectionComponent,
     ModelDetailsComponent,
     SliderComponent,
-    AboutComponent
+    AboutComponent,
+    SubHeadingComponent,
+    AdminProfileComponent
   ],
   imports: [
     BrowserModule,
