@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { SubHeadingComponent } from './sub-heading.component';
 
 describe('SubHeadingComponent', () => {
@@ -17,7 +16,7 @@ describe('SubHeadingComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create SubHeadingComponent', () => {
     expect(component).toBeTruthy();
   });
 });

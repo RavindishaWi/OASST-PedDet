@@ -105,7 +105,7 @@ h1 {
 }
 
 .button:hover {
-    background-color: orangered;
+    background-color: rgb(245, 135, 1);
 }
 
 .square.hovered {

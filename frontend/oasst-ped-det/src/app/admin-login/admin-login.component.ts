@@ -20,10 +20,6 @@ export class AdminLoginComponent implements OnInit {
 
   ngOnInit() {}
 
-  onCancelClick(): void {
-    this.dialogRef.close();
-  }
-
   onLoginClick(): void {
     this.auth.signInWithEmailAndPassword(this.email, this.password)
       .then((userCredential) => {
@@ -53,6 +49,11 @@ export class AdminLoginComponent implements OnInit {
             this.errorMessage = 'An error occurred during login. Please try again.';
         }
       });
+  }
+
+  // Close dialog on cancel request
+  onCancelClick(): void {
+    this.dialogRef.close();
   }
   
 }

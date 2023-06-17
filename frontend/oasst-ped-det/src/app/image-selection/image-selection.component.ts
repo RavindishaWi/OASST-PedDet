@@ -39,12 +39,24 @@ export class ImageSelectionComponent implements OnInit {
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file.type.match(/image\/*/) == null) {
-      this.toastr.error('Only image files are allowed.');
+      this.toastr.error('Only image files are allowed for testing.', '', {
+        closeButton: true,
+        progressBar: true,
+        timeOut: 5000,
+        extendedTimeOut: 2000,
+        positionClass: 'toast-bottom-right'
+      });
       return;
     }
 
     if (this.selectedFiles.length >= 3) {
-      this.toastr.warning('You can upload a maximum of 3 images.');
+      this.toastr.warning('You can upload a maximum of 3 images.', '', {
+        closeButton: true,
+        progressBar: true,
+        timeOut: 5000,
+        extendedTimeOut: 2000,
+        positionClass: 'toast-bottom-right'
+      });
       return;
     }
 
@@ -84,7 +96,13 @@ export class ImageSelectionComponent implements OnInit {
       }
 
       if (this.selectedFiles.length >= 3) {
-        this.toastr.warning('You can upload a maximum of 3 images.');
+        this.toastr.warning('You can upload a maximum of 3 images.', '', {
+          closeButton: true,
+          progressBar: true,
+          timeOut: 5000,
+          extendedTimeOut: 2000,
+          positionClass: 'toast-bottom-right'
+        });
         return;
       }
 

@@ -2,16 +2,8 @@ html, body {
     height: 100%;
 }
 
-
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
     background-color: #fafafa;
 }
-
-@font-face {
-    font-family: 'Custom Font';
-    src: url('./assets/fonts/MavenPro-Regular.ttf') format('truetype');
-    font-weight: normal;
-    font-style: normal;
- } 

@@ -35,8 +35,6 @@ import { LoaderPageComponent } from './loader-page/loader-page.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
 import { ImageSelectionComponent } from './image-selection/image-selection.component';
 import { ModelDetailsComponent } from './model-details/model-details.component';
-
-import { SliderComponent } from './slider/slider.component';
 import { AboutComponent } from './about/about.component';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -55,7 +53,6 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
     AdminLoginComponent,
     ImageSelectionComponent,
     ModelDetailsComponent,
-    SliderComponent,
     AboutComponent,
     SubHeadingComponent,
     AdminProfileComponent

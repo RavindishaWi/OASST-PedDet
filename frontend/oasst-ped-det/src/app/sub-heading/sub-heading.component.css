@@ -1,10 +1,10 @@
 .sub-heading-container {
     width: 100vw;
     height: 40px;
-    background-color: rgb(31, 31, 31);
+    background-color: rgb(76, 72, 137);
     position: absolute;
     top: 80px;
-    color: white;
+    color: #ffffff;
     display: flex;
     justify-content: center;
     align-items: center;
