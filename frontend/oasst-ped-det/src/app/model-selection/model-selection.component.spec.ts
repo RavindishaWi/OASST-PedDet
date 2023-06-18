@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ModelSelectionComponent } from './model-selection.component';
 
 describe('ModelSelectionComponent', () => {

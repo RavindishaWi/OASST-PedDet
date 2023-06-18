@@ -13,7 +13,7 @@ export class AppComponent implements OnInit {
   title = 'oasst-ped-det';
 
   // routes that the home page container is excluded from
-  excludedRoutes = ['/about', '/evaluation-results', '/model-selection', '/image-selection'];
+  excludedRoutes = ['/about', '/evaluation-results', '/model-selection', '/image-selection', '/detection-results'];
 
   // default loader value is set to true
   loader = true;
@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
   // admin login
   openAdminLoginDialog() {
     const dialogRef = this.dialog.open(AdminProfileComponent, {
-      width: '450px',
+      width: '400px',
       disableClose: true // disable the default close behavior
     });
 

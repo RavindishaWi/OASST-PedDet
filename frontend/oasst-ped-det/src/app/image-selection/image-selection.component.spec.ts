@@ -17,7 +17,7 @@ describe('ImageSelectionComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create ImageSelectionComponent', () => {
     expect(component).toBeTruthy();
   });
 });

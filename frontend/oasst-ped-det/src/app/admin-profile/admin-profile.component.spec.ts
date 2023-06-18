@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { AdminProfileComponent } from './admin-profile.component';
 
 describe('AdminProfileComponent', () => {
@@ -17,7 +16,7 @@ describe('AdminProfileComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create AdminProfileComponent', () => {
     expect(component).toBeTruthy();
   });
 });

@@ -172,9 +172,9 @@ export class ImageSelectionComponent implements OnInit {
     this.location.back();
   }
   
-  proceedToPrediction(): void {
-    console.log(this.selectedFiles); // add this line
-    this.router.navigate(['/prediction-results'], { queryParams: { selectedFiles: JSON.stringify(this.selectedFiles) } });
-  }    
+  // navigate to detection results page
+  proceedToDetection(): void {
+    this.router.navigate(['/detection-results']);
+  }
 
 }

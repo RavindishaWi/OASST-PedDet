@@ -23,7 +23,7 @@
 
 .button-container {
     position: absolute;
-    top: 90px;
+    top: 80px;
     left: 0;
 }
 
@@ -34,12 +34,16 @@
     margin: 10px;
 }
 
-.back-button {
-    color: white;
-    background-color: rgb(76, 72, 137);
+.back-button, .proceed-button {
+    color: #ffffff;
+    padding: 10px 20px 10px 20px;
 }
 
-.proceed-button {
-    color: white;
-    background-color: rgb(76, 72, 137);
+.back-button {
+    margin-right: 10px;
+    background-color: #536474;
+}
+
+.proceed-button {    
+    background-color: rgb(56, 146, 43);
 }

@@ -1,12 +1,18 @@
 <!-- image selection component -->
 <div class="image-selection-container">
+    <!-- sub heading -->
     <app-sub-heading [subHeadingText]="'Select images to view detection results'"></app-sub-heading>
 
+    <!-- buttons to go back to previous page and to proceed -->
+    <div class="button-container">
+        <a mat-button class="back-button" href="/">Go Back</a>
+        <a mat-button class="proceed-button" (click)="proceedToDetection()">Proceed</a>
+    </div>
     <!-- image gallery container -->
     <div class="image-gallery-container">
         <!-- image gallery -->
         <div class="image-gallery">
-            <div *ngFor="let url of imageUrls | paginate: { itemsPerPage: 12, currentPage: page }">
+            <div *ngFor="let url of imageUrls | paginate: { itemsPerPage: 7, currentPage: page }">
                 <label [class.selected]="selectedImages.includes(url)">
                     <img [src]="url" width="200" height="100" (click)="toggleSelection(url)" alt="image">
                     <div class="checkmark" *ngIf="selectedImages.includes(url) && selectedImages.indexOf(url) < 3"></div>
@@ -44,7 +50,6 @@
         <div class="file-preview-container" *ngIf="selectedFiles.length > 0">
             <div *ngFor="let file of selectedFiles; let i = index" class="file-preview">
               <img [src]="file.url" alt="Preview" width="200" height="100">
-              <div>{{ file.name }}</div>
             </div>
         </div>
           

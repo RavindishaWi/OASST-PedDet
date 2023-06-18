@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'evaluation-results', component: EvaluationResultsComponent },
   { path: 'model-selection', component: ModelSelectionComponent },
   { path: 'image-selection', component: ImageSelectionComponent },
-  { path: 'prediction-results', component: PredictionResultsComponent },
+  { path: 'detection-results', component: PredictionResultsComponent },
   { path: 'model-selection/:modelName/:description', component: ModelDetailsComponent },
 ];
 
