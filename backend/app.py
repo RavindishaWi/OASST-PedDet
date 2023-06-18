@@ -11,39 +11,25 @@ firebase_admin.initialize_app(cred, {
     'storageBucket': 'oasst-peddet.appspot.com'
 })
 
-# get a reference to the Firestore database
-db = firestore.client()
-
 app = Flask(__name__)
 CORS(app)
 
-@app.route('/admin', methods=['POST'])
-def admin_login():
-    email = request.form['email']
-    password = request.form['password']
+# get a reference to the storage bucket
+bucket = storage.bucket()
 
-    id_token = request.form['id_token']
-    decoded_token = auth.verify_id_token(id_token)
-    uid = decoded_token['uid']
-
+@app.route('/auth', methods=['POST'])
+def verify_token():
+    print("Request reached /auth")
+    id_token = request.json.get('idToken', '')
     try:
-        # Authenticate the admin user using Firebase Authentication
-        user = auth.get_user_by_email(email)
-        # Check if the user's email matches the admin user list
-        if user.email in ['ravindisha.2019430@iit.ac.lk']:
-            auth.verify_password(password, user)
-            # Admin authentication successful
-            success_message = 'Login successful'
-            return render_template('admin_login.html', success_message=success_message)
-        else:
-            # User not in the admin user list
-            error_message = 'Access denied'
-            return render_template('admin_login.html', error_message=error_message)
-
-    except auth.AuthError:
-        # admin authentication failed
-        error_message = 'Invalid credentials'
-        return render_template('admin_login.html', error_message=error_message)
+        # check the token against the Firebase Auth API
+        # this verifies that the token is correctly signed and not expired
+        decoded_token = auth.verify_id_token(id_token)
+        # token is valid, return some sort of success response
+        return jsonify({"status": "success"}), 200
+    except Exception as e:
+        # token is invalid, return an error response
+        return jsonify({"error": str(e)}), 400
 
 @app.route('/api/images')
 def get_image_urls():
@@ -59,6 +45,41 @@ def get_image_urls():
 
     # return list of image URLs as JSON
     return jsonify(urls)
+
+@app.route('/upload', methods=['POST'])
+def upload_file():
+    # get the file from the HTTP POST request
+    file = request.files['file']
+
+    # create a storage client
+    bucket = storage.bucket()
+
+    # create a blob (object) in the Firebase Storage 'test-images' folder and give it the name of the uploaded file
+    blob = bucket.blob('test-images/' + file.filename)
+
+    # upload the file content to the created blob
+    blob.upload_from_string(
+        file.read(),
+        content_type=file.content_type
+    )
+
+    # make the blob publicly viewable
+    blob.make_public()
+
+    # get the public URL of the uploaded file
+    public_url = blob.public_url
+
+    # initialize Firestore client
+    db = firestore.client()
+
+    # add the image URL to Firestore
+    doc_ref = db.collection('images').document(file.filename)
+    doc_ref.set({
+        'url': public_url
+    })
+
+    # return public_url wrapped in a JSON response
+    return jsonify({'url': public_url})
 
 @app.route('/models')
 def get_models():

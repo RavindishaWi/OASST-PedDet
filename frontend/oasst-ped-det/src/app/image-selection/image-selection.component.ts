@@ -71,7 +71,6 @@ export class ImageSelectionComponent implements OnInit {
     };
   }
 
-
   onFileDragOver(event: any): void {
     event.preventDefault();
     event.stopPropagation();
@@ -176,5 +175,39 @@ export class ImageSelectionComponent implements OnInit {
   proceedToDetection(): void {
     this.router.navigate(['/detection-results']);
   }
+
+  addImage(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target && target.files && target.files.length) {
+      const file = target.files[0];
+
+      // check if the file is an image
+      if (!file.type.startsWith('image/')) {
+          this.toastr.error('Please upload an image file', 'Error', {
+              closeButton: true,
+              progressBar: true,
+              timeOut: 5000,
+              extendedTimeOut: 2000,
+              positionClass: 'toast-bottom-right'
+          });
+          return;
+      }
+
+      const formData = new FormData();
+      formData.append('file', file);
+
+      this.http.post<{ url: string }>('http://localhost:5000/upload', formData).subscribe(response => {
+          const url = response.url;
+          this.toastr.success('Image uploaded to the database', 'Success', {
+              closeButton: true,
+              progressBar: true,
+              timeOut: 5000,
+              extendedTimeOut: 2000,
+              positionClass: 'toast-bottom-right'
+          });
+      });
+  }
+}
+
 
 }

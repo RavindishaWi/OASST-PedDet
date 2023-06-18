@@ -18,6 +18,10 @@
     margin-bottom: 16px;
 }
 
+.profile-icon {
+    font-size: 40px;
+}
+
 .admin-profile-dialog mat-form-field {
     margin-bottom: 16px;
     width: 300px;
@@ -54,10 +58,10 @@
     color: #555;
 }
 
-.login-button {
+.sign-in-button {
     margin-left: 8px;
 }
 
-.login-button, .logout-button {
+.sign-in-button, .sign-out-button {
     width: 100%;
 }

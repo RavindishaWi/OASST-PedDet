@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AdminLoginComponent } from '../admin-login/admin-login.component';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-profile',
@@ -9,49 +10,56 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
   styleUrls: ['./admin-profile.component.css']
 })
 export class AdminProfileComponent implements OnInit {
+  isSignedIn = false;
 
-  constructor(public dialog: MatDialog, public dialogRef: MatDialogRef<AdminProfileComponent>, public auth: AngularFireAuth) {}
+  constructor(public dialog: MatDialog, public dialogRef: MatDialogRef<AdminProfileComponent>, public auth: AngularFireAuth,
+    private toastr: ToastrService) {}
 
   ngOnInit() {
+    // admin sign in check
     this.auth.authState.subscribe(user => {
       if (user) {
-        console.log('User is signed in');
-        // Handle any additional logic for signed-in users here
+        this.isSignedIn = true;
       } else {
-        console.log('User is signed out');
-        // Handle any additional logic for signed-out users here
+        this.isSignedIn = false;
       }
     });
   }
 
   openSideDialog() {
+    // open admin login dialog
     const dialogRef = this.dialog.open(AdminLoginComponent, {
-      width: '450px'
+      width: '450px',
+      disableClose: false // disable outside click closing option
     });
 
     dialogRef.afterClosed().subscribe(result => {
       this.dialogRef.close();
-      console.log('The dialog was closed');
     });
   }
 
-  // onSignOutClick(): void {
-  //   this.auth.signOut()
-  //     .then(() => {
-  //       // You've been signed out successfully!
-  //       // Navigate to the desired page after signing out, if necessary
-  //       // this.router.navigate(['/login']);
-  //     })
-  //     .catch((error) => {
-  //       // An error occurred while signing out
-  //       console.error(error);
-  //     });
-  // }
-
   onSignOutClick(): void {
-    // sign out 
+    // sign out from the application
     this.auth.signOut().then(() => {
+      // close dialog
       this.dialogRef.close();
+
+      // show sign out information
+      this.toastr.info('User is signed out', 'Info', {
+        timeOut: 5000, // set the duration of the toastr notification
+        progressBar: true,
+        closeButton: true,
+        positionClass: 'toast-bottom-right',
+      });
+    })
+    // show error message for failed sign out
+    .catch(() => {
+      this.toastr.error('An error occurred while signing out', 'Error', {
+        timeOut: 5000,
+        progressBar: true,
+        closeButton: true,
+        positionClass: 'toast-bottom-right',
+      });
     });
   }
 }

@@ -50,7 +50,8 @@ export class AppComponent implements OnInit {
   openAdminLoginDialog() {
     const dialogRef = this.dialog.open(AdminProfileComponent, {
       width: '400px',
-      disableClose: true // disable the default close behavior
+      // allow closing dialog on clicking outside
+      disableClose: false
     });
 
     dialogRef.afterClosed().subscribe(result => {
