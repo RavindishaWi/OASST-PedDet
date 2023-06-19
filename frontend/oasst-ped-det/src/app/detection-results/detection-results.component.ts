@@ -1,13 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-prediction-results',
-  templateUrl: './prediction-results.component.html',
-  styleUrls: ['./prediction-results.component.css']
+  selector: 'app-detection-results',
+  templateUrl: './detection-results.component.html',
+  styleUrls: ['./detection-results.component.css']
 })
-export class PredictionResultsComponent {
+export class DetectionResultsComponent {
   selectedFiles: any[] = [];
 
   constructor(private route: ActivatedRoute, private http: HttpClient) {}
@@ -22,13 +22,12 @@ export class PredictionResultsComponent {
   }
 
   // Define a function to send an HTTP POST request to the Flask backend
-predictImages(images: File[]) {
-  const url = 'http://myflaskbackend.com/predict';
-  const formData = new FormData();
-  for (const image of images) {
-    formData.append('image', image);
+  predictImages(images: File[]) {
+    const url = 'http://myflaskbackend.com/predict';
+    const formData = new FormData();
+    for (const image of images) {
+      formData.append('image', image);
+    }
+    return this.http.post(url, formData);
   }
-  return this.http.post(url, formData);
-}
-  
 }

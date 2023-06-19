@@ -17,6 +17,9 @@ CORS(app)
 # get a reference to the storage bucket
 bucket = storage.bucket()
 
+# initialize the Firestore database client
+db = firestore.client()
+
 @app.route('/auth', methods=['POST'])
 def verify_token():
     print("Request reached /auth")
@@ -81,13 +84,18 @@ def upload_file():
     # return public_url wrapped in a JSON response
     return jsonify({'url': public_url})
 
-@app.route('/models')
+def doc_to_dict(doc):
+    data = doc.to_dict()
+    for key, value in data.items():
+        if isinstance(value, firestore.DocumentReference):
+            data[key] = value.path  # convert DocumentReference to path string
+    return {**data, 'id': doc.id}
+
+@app.route('/models', methods=['GET'])
 def get_models():
     models_ref = db.collection('models')
-    models_docs = models_ref.get()
-    models_data = []
-    for doc in models_docs:
-        models_data.append(doc.to_dict())
+    models = models_ref.stream()
+    models_data = [doc_to_dict(doc) for doc in models]
     return json.dumps(models_data)
 
 if __name__ == '__main__':

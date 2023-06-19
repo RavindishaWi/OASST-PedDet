@@ -4,12 +4,15 @@ import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
+import { ModelService } from 'src/app/model.service';
+
 // Model interface
 export interface Model {
   modelId: string;
   modelName: string;
   backbone: string;
   description: string;
+  modelRef: string;
 }
 
 @Component({
@@ -23,7 +26,9 @@ export class ModelTableComponent {
   dataSource = new MatTableDataSource<Model>();
   selection = new SelectionModel<Model>(true, []);
 
-  constructor(private http: HttpClient, private router: Router) { }
+  selectedModels: Model[] = [];
+
+  constructor(private http: HttpClient, private router: Router, private modelService: ModelService) { }
 
   ngOnInit() {
     this.fetchData();
@@ -58,6 +63,17 @@ export class ModelTableComponent {
   // show details of each model
   showDetails(model: any) {
     this.router.navigate(['/model-selection', model.modelName]);
+  }
+
+  checkboxClicked(row: Model) {
+    if (this.selection.isSelected(row)) {
+      // The checkbox for this row just got selected
+      this.selectedModels.push(row);
+    } else {
+      // The checkbox for this row just got deselected
+      this.selectedModels = this.selectedModels.filter(model => model.modelId !== row.modelId);
+    }
+    this.modelService.updateSelectedModels(this.selectedModels);
   }
 
 }

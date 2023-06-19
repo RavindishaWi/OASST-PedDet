@@ -29,7 +29,6 @@ import { RouterModule } from '@angular/router';
 import { ModelSelectionComponent } from './model-selection/model-selection.component';
 import { ModelTableComponent } from './model-table/model-table.component';
 import { HomePageComponent } from './home-page/home-page.component';
-import { PredictionResultsComponent } from './prediction-results/prediction-results.component';
 import { EvaluationResultsComponent } from './evaluation-results/evaluation-results.component';
 import { LoaderPageComponent } from './loader-page/loader-page.component';
 import { AdminLoginComponent } from './admin-login/admin-login.component';
@@ -40,6 +39,7 @@ import { AboutComponent } from './about/about.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SubHeadingComponent } from './sub-heading/sub-heading.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
+import { DetectionResultsComponent } from './detection-results/detection-results.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +47,6 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
     ModelSelectionComponent,
     ModelTableComponent,
     HomePageComponent,
-    PredictionResultsComponent,
     EvaluationResultsComponent,
     LoaderPageComponent,
     AdminLoginComponent,
@@ -55,7 +54,8 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
     ModelDetailsComponent,
     AboutComponent,
     SubHeadingComponent,
-    AdminProfileComponent
+    AdminProfileComponent,
+    DetectionResultsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from 'src/app/auth.service';
+import { ImageService } from 'src/app/image.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-image-selection',
@@ -21,12 +24,20 @@ export class ImageSelectionComponent implements OnInit {
   isDragging = false;
   errorMessage: string | null = null;
 
-  constructor(private router: Router, private http: HttpClient, private toastr: ToastrService, private location: Location) { }
+  isSignedIn$!: Observable<boolean>;
+
+  constructor(private router: Router, private http: HttpClient, private toastr: ToastrService, private location: Location,
+    private authService: AuthService,
+    private imageService: ImageService) { }
 
   ngOnInit(): void {
     this.http.get<string[]>('http://127.0.0.1:5000/api/images').subscribe(urls => {
       this.imageUrls = urls;
     });
+  }
+
+  get isUserSignedIn(): boolean {
+    return this.authService.isUserSignedIn;
   }
 
   //paginator controls
@@ -95,7 +106,7 @@ export class ImageSelectionComponent implements OnInit {
       }
 
       if (this.selectedFiles.length >= 3) {
-        this.toastr.warning('You can upload a maximum of 3 images.', '', {
+        this.toastr.warning('You can upload a maximum of 3 images.', 'Warning', {
           closeButton: true,
           progressBar: true,
           timeOut: 5000,
@@ -137,34 +148,37 @@ export class ImageSelectionComponent implements OnInit {
   }
 
   toggleSelection(url: string) {
-      const index = this.selectedImages.indexOf(url);
-      if (index === -1 && this.selectedImages.length < 3) {
-          // image is not already selected and less than 3 images are selected
-          this.selectedImages.push(url);
-          const file = this.imageUrls.find(image => image === url);
-          if (file) {
-              this.selectedFiles.push({
-                  name: file.split('/').pop(),
-                  url: file
-              });
-          }
-      } else if (index !== -1) {
-          // image is already selected, remove it from the selectedImages array
-          this.selectedImages.splice(index, 1);
-          const selectedFileIndex = this.selectedFiles.findIndex(file => file.url === url);
-          if (selectedFileIndex !== -1) {
-              this.selectedFiles.splice(selectedFileIndex, 1);
-          }
-      } else {
-          // image is not added when more than 3 images are already selected
-          this.toastr.warning('You can select a maximum of 3 images.', '', {
-            closeButton: true,
-            progressBar: true,
-            timeOut: 5000,
-            extendedTimeOut: 2000,
-            positionClass: 'toast-bottom-right'
-        });
-      }
+    const index = this.selectedImages.indexOf(url);
+    if (index === -1 && this.selectedImages.length < 3) {
+        // image is not already selected and less than 3 images are selected
+        this.selectedImages.push(url);
+        const file = this.imageUrls.find(image => image === url);
+        if (file) {
+            this.selectedFiles.push({
+                name: file.split('/').pop(),
+                url: file
+            });
+        }
+    } else if (index !== -1) {
+        // image is already selected, remove it from the selectedImages array
+        this.selectedImages.splice(index, 1);
+        const selectedFileIndex = this.selectedFiles.findIndex(file => file.url === url);
+        if (selectedFileIndex !== -1) {
+            this.selectedFiles.splice(selectedFileIndex, 1);
+        }
+    } else {
+        // image is not added when more than 3 images are already selected
+        this.toastr.warning('You can select a maximum of 3 images.', 'Warning', {
+          closeButton: true,
+          progressBar: true,
+          timeOut: 5000,
+          extendedTimeOut: 2000,
+          positionClass: 'toast-bottom-right'
+      });
+    }
+  
+    // update the service with the new selection
+    this.imageService.updateSelectedImages(this.selectedImages);
   }
 
   goBack() {
@@ -173,6 +187,7 @@ export class ImageSelectionComponent implements OnInit {
   
   // navigate to detection results page
   proceedToDetection(): void {
+    this.imageService.updateSelectedImages(this.selectedImages);
     this.router.navigate(['/detection-results']);
   }
 
@@ -206,8 +221,7 @@ export class ImageSelectionComponent implements OnInit {
               positionClass: 'toast-bottom-right'
           });
       });
+    }
   }
-}
-
 
 }

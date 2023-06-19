@@ -8,7 +8,7 @@
         <a mat-button class="back-button" href="/">Go Back</a>
         <a mat-button class="proceed-button" (click)="proceedToDetection()">Proceed</a>
         <input type="file" (change)="addImage($event)" style="display: none" #fileInput>
-        <a mat-button class="add-image-button" (click)="fileInput.click()">Add Image</a>
+        <a mat-button class="add-image-button" *ngIf="isUserSignedIn" (click)="fileInput.click()">Add Image</a>
     </div>
     <!-- image gallery container -->
     <div class="image-gallery-container">
