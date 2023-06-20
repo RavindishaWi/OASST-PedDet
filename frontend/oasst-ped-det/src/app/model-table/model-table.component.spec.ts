@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ModelTableComponent } from './model-table.component';
 
 describe('ModelTableComponent', () => {
@@ -17,7 +16,7 @@ describe('ModelTableComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create ModelTableComponent', () => {
     expect(component).toBeTruthy();
   });
 });

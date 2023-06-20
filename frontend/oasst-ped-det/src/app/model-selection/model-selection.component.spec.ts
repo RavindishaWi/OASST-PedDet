@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ModelSelectionComponent } from './model-selection.component';
 
 describe('ModelSelectionComponent', () => {
@@ -17,7 +16,7 @@ describe('ModelSelectionComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create ModelSelectionComponent', () => {
     expect(component).toBeTruthy();
   });
 });

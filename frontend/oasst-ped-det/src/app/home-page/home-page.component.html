@@ -1,4 +1,19 @@
 <div class="container">
-    <!-- start simulation -->
-    <li><a routerLink="model-selection">Start Simulation</a></li>
+    <!-- Background video -->
+    <div class="video-container">
+        <video #videoElement autoplay loop class="video black-and-white">
+          <source src="/assets/videos/pedestrians.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+        <div class="square"></div>
+    </div>
+
+    <div class="home-content">
+        <div class="content-center">
+            <h1>SST-PedDet</h1>
+      
+            <p>In publishing and graphic design, Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.</p>
+            <button mat-button [routerLink]="'model-selection'" class="button" (mouseenter)="resizeSquare()" (mouseleave)="resetSquare()">Start Simulation</button>
+        </div>
+    </div>
 </div>

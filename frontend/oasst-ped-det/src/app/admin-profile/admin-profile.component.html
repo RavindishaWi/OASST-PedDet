@@ -1,0 +1,15 @@
+<!-- admin profile dialog box -->
+<div class="admin-profile-dialog">
+    <h2 mat-dialog-title class="dialog-title">Admin Profile</h2>
+    <mat-icon class="profile-icon">account_circle</mat-icon>
+    <!-- admin profile icon -->
+    <mat-dialog-content>
+      <form #loginForm="ngForm">
+        <!-- sign in and sign out buttons -->
+        <mat-dialog-actions>
+          <button mat-raised-button class="sign-in-button" (click)="openSideDialog()" type="submit" *ngIf="!isSignedIn">Sign In</button>
+          <button mat-raised-button class="sign-out-button" (click)="onSignOutClick()" type="submit" *ngIf="isSignedIn">Sign Out</button>
+        </mat-dialog-actions> 
+      </form>
+    </mat-dialog-content>
+</div>

@@ -16,31 +16,79 @@
   overflow: hidden;
 }
 
+.logo-container {
+  cursor: pointer;
+  padding-left: 15px;
+}
+
 .spacer {
   flex: 1;
 }
 
 /*add styles for toolbar*/
 
-.toolbar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
-  height: 101px;
-  border-bottom: 1.5px solid #44413d;
-  display: flex;
-  align-items: center;
-  background-color: #000000;
+.floating-toolbar .mid-links a {
   color: white;
-  font-weight: 600;
 }
 
-.toolbar img {
-  margin: 0 30px;
-  height: 80%;
-  width: auto;
+.custom-toolbar {
+  display: flex;
+  align-items: center;
+}
+
+.mid-links {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.mid-links a {
+  margin: 0 10px;
+  text-decoration: none;
+  position: relative;
+}
+
+.mid-links a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #fff;
+  transform: scaleX(0);
+  transition: transform 0.3s ease-in-out;
+}
+
+.mid-links a:hover::after {
+  transform: scaleX(1);
+}
+
+.right-icons {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  height: 100%;
+}
+
+.transparent-toolbar {
+  background-color: rgb(245, 135, 1);
+}
+
+.right-icons button,
+.right-icons a {
+  margin-right: 10px;
+}
+
+.custom-toolbar {
+  height: 80px;
+}
+
+.floating-toolbar .right-icons a.mat-button svg,
+.floating-toolbar .right-icons button.mat-icon-button mat-icon {
+  vertical-align: middle;
 }
 
 @media (max-width: 768px) {
@@ -53,25 +101,6 @@
     transform: translateX(-50%);
     margin: auto;
   }
-}
-
-.links-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #333;
-  height: 100%;
-  width: 27%;
-}
-
-.github-link-container, .youtube-link-container, .admin-login-link-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #000;
-  height: 100%;
-  width: 50%;
-  border-left: 1.5px solid #44413d;
 }
 
 @media only screen and (max-width: 1020px) {
@@ -92,26 +121,6 @@
     }
   }
 
-  /* add styles for the hamburger icon */
-  .hamburger-icon {
-    display: none; /* hide the icon by default */
-    cursor: pointer;
-    padding: 10px;
-    background-color: #f2f2f2;
-  }
-
-  .hamburger-icon svg {
-    width: 20px;
-    height: 20px;
-  }
-
-  /* toggle the visibility of the links container on click */
-  .hamburger-icon.active + .links-container {
-    display: block;
-  }
-
-
-
     h1,
     h2,
     h3,
@@ -123,17 +132,6 @@
 
     p {
       margin: 0;
-    }
-
-    .toolbar #github-logo {
-      height: 40px;
-      margin: 0 8px;
-    }
-
-    .toolbar #youtube-logo {
-      height: 60px;
-      margin: 0 16px;
-      color: #44413d;
     }
 
     .toolbar #github-logo:hover,
@@ -188,65 +186,5 @@
     100% {
       width: 100%;
     }
-  }
-
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
-  
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #2196F3;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
   }
   
