@@ -1,1 +1,1 @@
-# OASST-PedDet
+# SST-PedDet
