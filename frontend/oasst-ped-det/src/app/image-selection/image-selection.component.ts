@@ -6,6 +6,8 @@ import { ImageService } from 'src/app/image.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Model } from '../model-table/model-table.component';
+import { ModelService } from '../model.service';
 
 @Component({
   selector: 'app-image-selection',
@@ -16,6 +18,7 @@ export class ImageSelectionComponent implements OnInit {
   page: number = 1;
   imageUrls: string[] = [];
   selectedImages: string[] = [];
+  selectedModels: Model[] = [];
 
   imageUrl: any;
   uploadedImage: any;
@@ -26,13 +29,23 @@ export class ImageSelectionComponent implements OnInit {
 
   isSignedIn$!: Observable<boolean>;
 
-  constructor(private router: Router, private http: HttpClient, private toastr: ToastrService, private location: Location,
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private toastr: ToastrService,
+    private location: Location,
     private authService: AuthService,
-    private imageService: ImageService) { }
+    private imageService: ImageService,
+    private modelService: ModelService
+    ) { }
 
   ngOnInit(): void {
     this.http.get<string[]>('http://127.0.0.1:5000/api/images').subscribe(urls => {
       this.imageUrls = urls;
+    });
+
+    this.modelService.selectedModels$.subscribe(models => {
+      this.selectedModels = models;
     });
   }
 
@@ -187,8 +200,26 @@ export class ImageSelectionComponent implements OnInit {
   
   // navigate to detection results page
   proceedToDetection(): void {
-    this.imageService.updateSelectedImages(this.selectedImages);
-    this.router.navigate(['/detection-results']);
+    if (this.selectedModels.length > 0) {
+      const modelId = this.selectedModels[0].modelId;
+
+      this.imageService.updateSelectedImages(this.selectedImages);
+
+      this.http.post('http://127.0.0.1:5000/api/detect', { 
+        imageUrls: this.selectedImages, 
+        modelId: modelId 
+      }).subscribe(
+        results => {
+          // Handle successful results here
+          this.router.navigate(['/detection-results']);
+        },
+        error => {
+          console.error('There was an error with the detection API:', error);
+        }
+      );
+    } else {
+      // Handle the case when no model is selected
+    }
   }
 
   addImage(event: Event) {

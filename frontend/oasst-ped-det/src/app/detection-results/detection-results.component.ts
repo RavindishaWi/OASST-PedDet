@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ModelService } from '../model.service';
+import { ImageService } from '../image.service';
 
 @Component({
   selector: 'app-detection-results',
@@ -8,26 +9,46 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./detection-results.component.css']
 })
 export class DetectionResultsComponent {
-  selectedFiles: any[] = [];
+  selectedModels: any[] = [];
+  selectedImages: any[] = [];
+  detectionResults: any[] = [];
 
-  constructor(private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private modelService: ModelService,
+    private imageService: ImageService
+  ) {}
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      const selectedFilesString = params['selectedFiles'];
-      if (selectedFilesString) {
-        this.selectedFiles = JSON.parse(selectedFilesString);
-      }
+    this.modelService.selectedModels$.subscribe(models => {
+      this.selectedModels = models;
+    });
+  
+    this.imageService.selectedImages$.subscribe(images => {
+      this.selectedImages = images;
+    });
+  
+    this.applyModelsToImages();
+  }
+
+  private applyModelsToImages(): void {
+    this.selectedModels.forEach(model => {
+      this.selectedImages.forEach(image => {
+        this.applyModelToImage(model.modelId, image);
+      });
     });
   }
 
-  // Define a function to send an HTTP POST request to the Flask backend
-  predictImages(images: File[]) {
-    const url = 'http://myflaskbackend.com/predict';
-    const formData = new FormData();
-    for (const image of images) {
-      formData.append('image', image);
-    }
-    return this.http.post(url, formData);
+  private applyModelToImage(modelId: string, image: string): void {
+    this.http.post('http://localhost:5000/api/detect', {
+      model: modelId,
+      imageUrl: image
+    }).subscribe(response => {
+      this.detectionResults.push({
+        model: modelId,
+        image: image,
+        result: response
+      });
+    });
   }
 }

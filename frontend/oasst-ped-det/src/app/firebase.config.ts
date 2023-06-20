@@ -1,10 +1,9 @@
 export const firebaseConfig = {
-    apiKey: "AIzaSyBQs376TRoJ5fzwKHvghRhHp5ig8yBEkWA",
-    authDomain: "oasst-peddet.firebaseapp.com",
-    databaseURL: "https://oasst-peddet-default-rtdb.firebaseio.com",
-    projectId: "oasst-peddet",
-    storageBucket: "oasst-peddet.appspot.com",
-    messagingSenderId: "234272945865",
-    appId: "1:234272945865:web:971d3997b0805cc843ff18",
-    measurementId: "G-4DBTY67HSY"
+    apiKey: "AIzaSyDbC3qX4BsHeeluL26HyhcWOp-5VaaRDqw",
+    authDomain: "sst-peddet.firebaseapp.com",
+    projectId: "sst-peddet",
+    storageBucket: "sst-peddet.appspot.com",
+    messagingSenderId: "403745525110",
+    appId: "1:403745525110:web:57859ec74d68928b01fe57",
+    measurementId: "G-RPR4JZ55HD"
 };

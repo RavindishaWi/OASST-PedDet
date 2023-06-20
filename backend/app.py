@@ -5,10 +5,21 @@ from flask import Flask, jsonify, render_template, request, redirect, url_for
 from flask_cors import CORS
 from firebase_admin import credentials, firestore, storage, auth
 
+from PIL import Image
+import requests
+from io import BytesIO
+from google.cloud import storage as gcs_storage
+import joblib
+import numpy as np
+from skimage.transform import resize
+import pickle
+from werkzeug.exceptions import BadRequest
+import functools
+
 # initialize the Firebase Admin SDK
 cred = credentials.Certificate('api/firebase-adminsdk.json')
 firebase_admin.initialize_app(cred, {
-    'storageBucket': 'oasst-peddet.appspot.com'
+    'storageBucket': 'sst-peddet.appspot.com'
 })
 
 app = Flask(__name__)
@@ -19,6 +30,8 @@ bucket = storage.bucket()
 
 # initialize the Firestore database client
 db = firestore.client()
+
+model_cache = {}
 
 @app.route('/auth', methods=['POST'])
 def verify_token():
@@ -97,6 +110,90 @@ def get_models():
     models = models_ref.stream()
     models_data = [doc_to_dict(doc) for doc in models]
     return json.dumps(models_data)
+
+def load_model(model_id):
+    """
+    Load a model from Firebase Storage
+    """
+    if model_id is None:
+        raise ValueError("Model ID cannot be None")
+
+    # Check if model is in cache
+    if model_id in model_cache:
+        return model_cache[model_id]
+
+    # If model is not in cache, download from storage
+    blob = bucket.blob(f'models/{model_id}.pkl')
+    blob_bytes = blob.download_as_bytes()
+    model = pickle.loads(blob_bytes)
+
+    # Save model to cache
+    model_cache[model_id] = model
+
+    return model
+
+@app.route('/api/detect', methods=['POST'])
+def detect_objects():
+    # Check that the request contains JSON data
+    if not request.is_json:
+        return jsonify({"error": "Missing JSON in request"}), 400
+
+    data = request.get_json()
+
+    # Check for required fields in the JSON data
+    if 'modelId' not in data or 'imageUrls' not in data:
+        return jsonify({"error": "The fields 'modelId' and 'imageUrls' are required"}), 400
+
+    model_id = data.get('modelId')
+    image_urls = data.get('imageUrls')
+
+    try:
+        model = load_model(model_id)
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+    results = []
+
+    for image_url in image_urls:
+        try:
+            image = load_image(image_url)
+            result = apply_model_to_image(model, image)
+            results.append({
+                'imageUrl': image_url,
+                'result': result
+            })
+        except Exception as e:
+            return jsonify({'error': 'Error processing image {}: {}'.format(image_url, e)}), 500
+
+    return jsonify(results)
+
+def apply_model_to_image(model, image):
+    """
+    Apply a model to an image
+    """
+    # Resize the image to the size the model expects
+    image = resize(image, (224, 224, 3)) # Use your model's expected input size here
+
+    # Apply the model
+    result = model.predict(np.expand_dims(image, axis=0))
+
+    # Convert the result to a list (if it's not already) so it can be serialized to JSON
+    if not isinstance(result, list):
+        result = result.tolist()
+
+    return result
+
+def load_image(image_url):
+    """
+    Load an image from a URL
+    """
+    response = requests.get(image_url)
+    image = Image.open(BytesIO(response.content))
+
+    # Convert the image to numpy array and normalize it
+    image = np.array(image) / 255.0
+
+    return image
 
 if __name__ == '__main__':
     app.run(debug = True)

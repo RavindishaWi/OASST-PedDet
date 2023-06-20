@@ -17,7 +17,7 @@ describe('DetectionResultsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create DetectionResultsComponent', () => {
     expect(component).toBeTruthy();
   });
 });
