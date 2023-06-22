@@ -275,5 +275,3 @@ if __name__ == '__main__':
     cv2.imwrite(output_image_path, output_image)
 
     print("Output image saved successfully.")
-
-script_path = 'visualize_attention.py'
