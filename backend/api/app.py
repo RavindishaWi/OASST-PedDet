@@ -18,7 +18,7 @@ import functools
 
 
 # initialize the Firebase Admin SDK
-cred = credentials.Certificate('api/firebase-adminsdk.json')
+cred = credentials.Certificate('firebase-adminsdk.json')
 firebase_admin.initialize_app(cred, {
     'storageBucket': 'sst-peddet.appspot.com'
 })
