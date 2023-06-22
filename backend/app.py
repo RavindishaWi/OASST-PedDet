@@ -16,6 +16,7 @@ import pickle
 from werkzeug.exceptions import BadRequest
 import functools
 
+
 # initialize the Firebase Admin SDK
 cred = credentials.Certificate('api/firebase-adminsdk.json')
 firebase_admin.initialize_app(cred, {
@@ -173,6 +174,8 @@ def apply_model_to_image(model, image):
     """
     # Resize the image to the size the model expects
     image = resize(image, (224, 224, 3)) # Use your model's expected input size here
+
+    visualize_attention
 
     # Apply the model
     result = model.predict(np.expand_dims(image, axis=0))

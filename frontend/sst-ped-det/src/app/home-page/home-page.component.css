@@ -1,3 +1,32 @@
+@font-face {
+    font-family: 'CustomFont';
+    src: url('src/assets/fonts/Anton-Regular.ttf') format('truetype');
+}
+  
+h1 {
+    font-family: 'CustomFont', sans-serif;
+    letter-spacing: 6px;
+    font-size: 90px;
+}
+
+.app-name {
+    color: #ffffff;
+    /* -webkit-text-stroke: 1px #474747; */
+}
+
+.highlight {
+    color: darkorange;
+}
+
+.description-container {
+    padding-bottom: 24px;
+}
+
+.description p {
+    font-size: 16px;
+    color: #000000;
+}
+
 .video-container {
     position: fixed;
     top: 0;
@@ -15,7 +44,7 @@
 }
 
 .black-and-white {
-    filter: grayscale(100%);
+    filter: grayscale(75%);
     z-index: 2;
 }
 
@@ -58,12 +87,7 @@
     position: absolute;
     top: 22%;
     text-align: center;
-    width: 700px;
-}
-
-h1 {
-    font-size: 90px;
-    color: white;
+    width: 480px;
 }
 
 .button {

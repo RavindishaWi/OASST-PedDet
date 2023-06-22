@@ -12,8 +12,11 @@ import { ToastrService } from 'ngx-toastr';
 export class AdminProfileComponent implements OnInit {
   isSignedIn = false;
 
-  constructor(public dialog: MatDialog, public dialogRef: MatDialogRef<AdminProfileComponent>, public auth: AngularFireAuth,
-    private toastr: ToastrService) {}
+  constructor(
+    public dialog: MatDialog,
+    public dialogRef: MatDialogRef<AdminProfileComponent>,
+    public auth: AngularFireAuth,
+    public toastr: ToastrService) {}
 
   ngOnInit() {
     // admin sign in check
@@ -27,9 +30,8 @@ export class AdminProfileComponent implements OnInit {
   }
 
   openSideDialog() {
-    // open admin login dialog
+    // open admin sign in dialog
     const dialogRef = this.dialog.open(AdminLoginComponent, {
-      width: '450px',
       disableClose: false // disable outside click closing option
     });
 

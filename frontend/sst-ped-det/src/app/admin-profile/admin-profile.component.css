@@ -1,67 +1,32 @@
 .admin-profile-dialog {
-    width: 400px;
     text-align: center;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.958);
     border-radius: 8px;
-    padding: 8px;
     position: fixed;
     top: 90px;
     right: 0;
-    width: 250px;
-    height: 300px;
-    box-shadow: none;
-}
-
-.admin-profile-dialog h2.mat-dialog-title {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 16px;
-}
-
-.profile-icon {
-    font-size: 40px;
-}
-
-.admin-profile-dialog mat-form-field {
-    margin-bottom: 16px;
-    width: 300px;
-}
-
-.admin-profile-dialog mat-dialog-actions {
-    justify-content: flex-end;
-}
-
-.admin-profile-dialog mat-dialog-actions button.mat-button {
-    margin-left: 8px;
+    width: 210px;
+    height: 250px;
+    padding-top: 20px;
 }
   
 .dialog-title {
-    font-size: 24px;
-    margin-bottom: 16px;
+    font-size: 20px;
+    color: rgb(245, 135, 1);
+    margin-bottom: 20px;
 }
 
-.mat-form-field {
-    width: 100%;
-    margin-bottom: 16px;
-}
-
-.cancel-button {
-    color: #888;
-    background-color: transparent;
-    border: none;
-    outline: none;
-    cursor: pointer;
-    transition: color 0.3s;
+svg {
+    fill: rgb(112, 112, 112);
 }
   
-.cancel-button:hover {
-    color: #555;
-}
-
-.sign-in-button {
-    margin-left: 8px;
-}
-
 .sign-in-button, .sign-out-button {
     width: 100%;
+    background-color: darkorange;
+    color: #ffffff;
 }
+  
+.sign-in-button:hover, .sign-out-button:hover {
+    background-color: rgb(138, 138, 138);
+}
+  
