@@ -1,6 +1,5 @@
 import subprocess
 
-
 def visualize_attention(image_path, model_weight_path, working_directory):
     python_interpreter_path = '../../../venv/Scripts/python.exe'  # update this path
     script_path = 'visualize_attention.py'
@@ -15,6 +14,3 @@ image_path = 'images/foggy.jpg'
 model_weight_path = 'checkpoint.pth'
 working_directory = '.'
 visualize_attention(image_path, model_weight_path, working_directory)
-
-
-
