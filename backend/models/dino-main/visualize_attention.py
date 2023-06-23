@@ -255,7 +255,7 @@ if __name__ == '__main__':
     combined_attention = np.mean(attentions, axis=0)
 
     # save the combined attention map
-    combined_attention_path = "results/combined_attention.png"
+    combined_attention_path = "../../api/results/combined_attention.png"
     plt.imsave(fname=combined_attention_path, arr=combined_attention, format='png')
     print(f"{combined_attention_path} saved.")
 
@@ -271,7 +271,7 @@ if __name__ == '__main__':
     output_image = run_bounding_box_detection([combined_attention_image], original_image_path)
 
     # save output image
-    output_image_path = "results/output_image.jpg"
+    output_image_path = "../../api/results/output_image.jpg"
     cv2.imwrite(output_image_path, output_image)
 
     print("Output image saved successfully.")
