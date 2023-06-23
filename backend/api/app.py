@@ -1,4 +1,7 @@
 import json
+import tempfile
+import urllib
+
 import firebase_admin
 
 from flask import Flask, jsonify, render_template, request, redirect, url_for
@@ -15,10 +18,11 @@ from skimage.transform import resize
 import pickle
 from werkzeug.exceptions import BadRequest
 import functools
+import base64
 
+from backend.api.service import get_results
 
-# initialize the Firebase Admin SDK
-cred = credentials.Certificate('firebase-adminsdk.json')
+# initialize the Firebase Admin SDKcred = credentials.Certificate('firebase-adminsdk.json')
 firebase_admin.initialize_app(cred, {
     'storageBucket': 'sst-peddet.appspot.com'
 })
@@ -34,6 +38,7 @@ db = firestore.client()
 
 model_cache = {}
 
+
 @app.route('/auth', methods=['POST'])
 def verify_token():
     print("Request reached /auth")
@@ -47,6 +52,7 @@ def verify_token():
     except Exception as e:
         # token is invalid, return an error response
         return jsonify({"error": str(e)}), 400
+
 
 @app.route('/api/images')
 def get_image_urls():
@@ -62,6 +68,7 @@ def get_image_urls():
 
     # return list of image URLs as JSON
     return jsonify(urls)
+
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -98,12 +105,14 @@ def upload_file():
     # return public_url wrapped in a JSON response
     return jsonify({'url': public_url})
 
+
 def doc_to_dict(doc):
     data = doc.to_dict()
     for key, value in data.items():
         if isinstance(value, firestore.DocumentReference):
             data[key] = value.path  # convert DocumentReference to path string
     return {**data, 'id': doc.id}
+
 
 @app.route('/models', methods=['GET'])
 def get_models():
@@ -112,26 +121,6 @@ def get_models():
     models_data = [doc_to_dict(doc) for doc in models]
     return json.dumps(models_data)
 
-def load_model(model_id):
-    """
-    Load a model from Firebase Storage
-    """
-    if model_id is None:
-        raise ValueError("Model ID cannot be None")
-
-    # Check if model is in cache
-    if model_id in model_cache:
-        return model_cache[model_id]
-
-    # If model is not in cache, download from storage
-    blob = bucket.blob(f'models/{model_id}.pkl')
-    blob_bytes = blob.download_as_bytes()
-    model = pickle.loads(blob_bytes)
-
-    # Save model to cache
-    model_cache[model_id] = model
-
-    return model
 
 @app.route('/api/detect', methods=['POST'])
 def detect_objects():
@@ -140,51 +129,42 @@ def detect_objects():
         return jsonify({"error": "Missing JSON in request"}), 400
 
     data = request.get_json()
+    image_urls_list = data['imageUrls']
 
-    # Check for required fields in the JSON data
-    if 'modelId' not in data or 'imageUrls' not in data:
-        return jsonify({"error": "The fields 'modelId' and 'imageUrls' are required"}), 400
+    print(data)
 
-    model_id = data.get('modelId')
-    image_urls = data.get('imageUrls')
+    print(image_urls_list)
 
-    try:
-        model = load_model(model_id)
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+    results = {}
 
-    results = []
+    for image_url in image_urls_list:
+        image = load_image(image_url)
+        local_file_path = create_local_temp_file(image_url)
+        status = get_results(local_file_path)
+        # Will wait till the combined_attention and output image is generated
+        if status == 'done':
+            print('Image generation successful')
 
-    for image_url in image_urls:
-        try:
-            image = load_image(image_url)
-            result = apply_model_to_image(model, image)
-            results.append({
-                'imageUrl': image_url,
-                'result': result
-            })
-        except Exception as e:
-            return jsonify({'error': 'Error processing image {}: {}'.format(image_url, e)}), 500
+            # output path of the generated images by the dino model
+            output_com_image_path = 'results/combined_attention.png'
+            output_image_path = 'results/output_image.jpg'
+
+            # passing the paths of the generated images for encoding
+            output_com_image = encode_image(output_com_image_path)
+            output_image = encode_image(output_image_path)
+
+            # encoded images will be added for a dictionary
+            temp_result = {'combined_attention': output_com_image, 'output_image': output_image}
+
+            # adding to final json, this containes original image url from firebase, and the generated output images
+            results[image_url] = temp_result
+
+    # print(results)
+    # sample how the results json will look like
+    # results = {'image1url : {'combined_attention': data, 'output_image': data}, image2url: : {'combined_attention': data, 'output_image': data}...}
 
     return jsonify(results)
 
-def apply_model_to_image(model, image):
-    """
-    Apply a model to an image
-    """
-    # Resize the image to the size the model expects
-    image = resize(image, (224, 224, 3)) # Use your model's expected input size here
-
-    visualize_attention
-
-    # Apply the model
-    result = model.predict(np.expand_dims(image, axis=0))
-
-    # Convert the result to a list (if it's not already) so it can be serialized to JSON
-    if not isinstance(result, list):
-        result = result.tolist()
-
-    return result
 
 def load_image(image_url):
     """
@@ -198,5 +178,27 @@ def load_image(image_url):
 
     return image
 
+
+# Dino model dosen't accept image url as path, so this function will download and create temp local file
+def create_local_temp_file(url):
+    with urllib.request.urlopen(url) as response:
+        with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+            temp_file.write(response.read())
+            return temp_file.name
+
+
+# Images will be encoded to output to the API
+def encode_image(image_path):
+    # Read the image file
+    with open(image_path, 'rb') as f:
+        image_data = f.read()
+
+    encoded_image = base64.b64encode(image_data).decode('utf-8')
+    # Create a JSON response containing the image data
+    response = encoded_image
+
+    return response
+
+
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run(debug=True)
