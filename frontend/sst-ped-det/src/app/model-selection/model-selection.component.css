@@ -1,0 +1,49 @@
+.model-container {
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    background-color: #f4f4f4;
+}
+
+.header-container {
+    width: 85vw;
+    position: absolute;
+    top: 23%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.table-container {
+    width: 85vw;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.button-container {
+    position: absolute;
+    top: 80px;
+    left: 0;
+}
+
+.mat-button {
+    font-size: 16px;
+    padding: 12px 24px;
+    text-transform: uppercase;
+    margin: 10px;
+}
+
+.back-button, .proceed-button {
+    color: #ffffff;
+    padding: 10px 20px 10px 20px;
+}
+
+.back-button {
+    margin-right: 10px;
+    background-color: #536474;
+}
+
+.proceed-button {    
+    background-color: rgb(56, 146, 43);
+}

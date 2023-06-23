@@ -1,0 +1,161 @@
+.image-selection-container {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.image-gallery-container {
+  width: 96%;
+  height: 25%;
+  display: flex;
+  justify-content: center;
+  
+  position: fixed;
+  top: 37%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.paginator {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.button-container {
+  position: absolute;
+  top: 80px;
+  left: 0;
+}
+
+.back-button, .proceed-button {
+  position: absolute;
+  top: 16%;
+  font-size: 16px;
+  padding: 12px 24px;
+  margin: 10px;
+}
+
+.selected-content {
+  width: 96%;
+  position: absolute;
+  top: 85%;
+  height: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.image-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  /* align-items: center; */
+
+  width: 96%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.image-gallery img {
+  padding: 10px 10px 10px 10px;
+}
+
+.file-upload-container {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 96%;
+  height: 20%;
+  background-color: rgb(240, 240, 240);
+  border: 2px dashed rgb(164, 164, 164);
+  padding: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  top: 61%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 6px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.image-gallery label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .image-gallery img {
+    width: 200px;
+    height: 100px;
+    object-fit: cover;
+  }
+
+.upload-container {
+
+    width: 100vw;
+    height: 40%;
+    background-color: antiquewhite;
+}
+
+.image-gallery label {
+  display: block;
+  position: relative;
+}
+
+.image-gallery label img {
+  cursor: pointer;
+}
+  
+.image-gallery label .checkmark {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+}
+
+.image-gallery label.selected .checkmark {
+  display: block;
+  background-color: #018f08;
+  border-color: #018f08;
+}
+  
+.image-gallery label.selected .checkmark:before {
+  content: '\2713';
+  display: block;
+  text-align: center;
+  font-size: 16px;
+  color: #fff;
+}
+
+.file-preview-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+}
