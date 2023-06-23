@@ -1,0 +1,26 @@
+.mat-table {
+    overflow: auto;
+    max-height: 500px;
+}
+
+.mat-raised-button {
+    display: inline-block;
+    padding: 6px 15px;
+    text-align: center;
+    text-decoration: none;
+    background-color: rgb(76, 72, 137);
+    color: #fff;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.mat-column-select {
+    overflow: visible;
+}
+
+::ng-deep .mat-checkbox-checked .mat-checkbox-background,
+::ng-deep .mat-checkbox-indeterminate .mat-checkbox-background {
+  background-color: green !important;
+}

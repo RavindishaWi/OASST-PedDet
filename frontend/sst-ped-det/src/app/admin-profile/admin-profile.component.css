@@ -1,0 +1,32 @@
+.admin-profile-dialog {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.958);
+    border-radius: 8px;
+    position: fixed;
+    top: 90px;
+    right: 0;
+    width: 210px;
+    height: 250px;
+    padding-top: 20px;
+}
+  
+.dialog-title {
+    font-size: 20px;
+    color: rgb(245, 135, 1);
+    margin-bottom: 20px;
+}
+
+svg {
+    fill: rgb(112, 112, 112);
+}
+  
+.sign-in-button, .sign-out-button {
+    width: 100%;
+    background-color: darkorange;
+    color: #ffffff;
+}
+  
+.sign-in-button:hover, .sign-out-button:hover {
+    background-color: rgb(138, 138, 138);
+}
+  

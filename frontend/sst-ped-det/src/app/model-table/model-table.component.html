@@ -1,0 +1,52 @@
+<!-- model table -->
+<div class="table-container mat-elevation-z8">  
+  <mat-table [dataSource]="dataSource">
+    <!-- define the columns of the table -->
+    <!-- checkbox Column -->
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef>
+        <mat-checkbox color="accent" (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-checkbox color="warn" (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null; checkboxClicked(row)"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
+    <!-- model ID column -->
+    <ng-container matColumnDef="modelId">
+      <mat-header-cell *matHeaderCellDef>Model ID</mat-header-cell>
+      <mat-cell *matCellDef="let model"> {{model.modelId}} </mat-cell>
+    </ng-container>
+    <!-- model name column -->
+    <ng-container matColumnDef="modelName">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let model"> {{model.modelName}} </mat-cell>
+    </ng-container>
+    <!-- model backbone column -->
+    <ng-container matColumnDef="backbone">
+      <mat-header-cell *matHeaderCellDef>Backbone</mat-header-cell>
+      <mat-cell *matCellDef="let model"> {{model.backbone}} </mat-cell>
+    </ng-container>
+    <!-- model description column -->
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef>Model Description</mat-header-cell>
+      <mat-cell *matCellDef="let model">
+        <button class="mat-raised-button" (click)="showDetails(model)">Show Details</button>
+      </mat-cell>
+    </ng-container>
+    <!-- display data rows -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+
+  <!-- paginator -->
+  <mat-paginator #paginator
+                 [pageSize]="5"
+                 [pageSizeOptions]="[5, 10]">
+  </mat-paginator>
+</div>
