@@ -1,4 +1,27 @@
-<div *ngFor="let file of selectedImages" class="file-preview">
-    <img [src]="file.url" alt="Preview" width="200" height="100">
-    <div>{{ file.name }}</div>
+<div class="card-container">
+  <div class="card">
+    <div class="image-set" *ngFor="let result of detectionResults">
+      <div class="image-card">
+        <img [src]="result.original_image" alt="Original Image" (click)="openImagePopup(result.original_image)">
+        <h4 class="image-title">Original Image</h4>
+      </div>
+      <div class="image-card">
+        <img [src]="'data:image/png;base64,' + result.combined_attention" alt="Combined Attention Image" (click)="openImagePopup('data:image/png;base64,' + result.combined_attention)">
+        <h4 class="image-title">Combined Attention</h4>
+      </div>
+      <div class="image-card">
+        <img [src]="'data:image/jpeg;base64,' + result.output_image" alt="Output Image" (click)="openImagePopup('data:image/jpeg;base64,' + result.output_image)">
+        <h4 class="image-title">Output Image</h4>
+      </div>
+    </div>
+  </div>
 </div>
+
+  
+  
+  
+  <div class="image-popup" *ngIf="popupImage">
+    <span class="close-button" (click)="closeImagePopup()">&times;</span>
+    <img [src]="popupImage" alt="Zoomed Image">
+  </div>
+  

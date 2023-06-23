@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Model } from '../model-table/model-table.component';
 import { ModelService } from '../model.service';
+import { DetectionResultsService } from '../DetectionResultsService';
 
 @Component({
   selector: 'app-image-selection',
@@ -36,7 +37,8 @@ export class ImageSelectionComponent implements OnInit {
     private location: Location,
     private authService: AuthService,
     private imageService: ImageService,
-    private modelService: ModelService
+    private modelService: ModelService,
+    private detectionResultsService: DetectionResultsService
     ) { }
 
   ngOnInit(): void {
@@ -199,6 +201,32 @@ export class ImageSelectionComponent implements OnInit {
   }
   
   // navigate to detection results page
+  // proceedToDetection(): void {
+  //   if (this.selectedModels.length > 0) {
+  //     const modelId = this.selectedModels[0].modelId;
+
+  //     this.imageService.updateSelectedImages(this.selectedImages);
+
+  //     this.http.post('http://127.0.0.1:5000/api/detect', { 
+  //       imageUrls: this.selectedImages, 
+  //       modelId: modelId 
+  //     }).subscribe(
+  //       results => {
+  //         // Handle successful results here
+  //         console.log(results)
+  //         this.router.navigate(['/detection-results']);
+  //       },
+  //       error => {
+  //         console.error('There was an error with the detection API:', error);
+  //       }
+  //     );
+  //   } else {
+  //     // Handle the case when no model is selected
+  //   }
+  // }
+
+
+    // navigate to detection results page
   proceedToDetection(): void {
     if (this.selectedModels.length > 0) {
       const modelId = this.selectedModels[0].modelId;
@@ -211,6 +239,8 @@ export class ImageSelectionComponent implements OnInit {
       }).subscribe(
         results => {
           // Handle successful results here
+          console.log(results)
+          this.detectionResultsService.updateDetectionResults(results);
           this.router.navigate(['/detection-results']);
         },
         error => {
@@ -221,6 +251,7 @@ export class ImageSelectionComponent implements OnInit {
       // Handle the case when no model is selected
     }
   }
+
 
   addImage(event: Event) {
     const target = event.target as HTMLInputElement;
