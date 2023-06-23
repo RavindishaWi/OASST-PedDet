@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ModelService } from '../model.service';
 import { ImageService } from '../image.service';
+import { DetectionResultsService } from '../detection-results.service';
+
 
 @Component({
   selector: 'app-detection-results',
@@ -13,42 +15,27 @@ export class DetectionResultsComponent {
   selectedImages: any[] = [];
   detectionResults: any[] = [];
 
+  popupImage: string | null = null;
+
   constructor(
     private http: HttpClient,
     private modelService: ModelService,
-    private imageService: ImageService
+    private imageService: ImageService,
+    private detectionResultsService: DetectionResultsService
   ) {}
 
   ngOnInit(): void {
-    this.modelService.selectedModels$.subscribe(models => {
-      this.selectedModels = models;
-    });
-  
-    this.imageService.selectedImages$.subscribe(images => {
-      this.selectedImages = images;
-    });
-  
-    this.applyModelsToImages();
-  }
-
-  private applyModelsToImages(): void {
-    this.selectedModels.forEach(model => {
-      this.selectedImages.forEach(image => {
-        this.applyModelToImage(model.modelId, image);
-      });
+    this.detectionResultsService.detectionResults$.subscribe(results => {
+      this.detectionResults = Object.keys(results).map(key => ({ image: key, ...results[key] }));
     });
   }
 
-  private applyModelToImage(modelId: string, image: string): void {
-    this.http.post('http://localhost:5000/api/detect', {
-      model: modelId,
-      imageUrl: image
-    }).subscribe(response => {
-      this.detectionResults.push({
-        model: modelId,
-        image: image,
-        result: response
-      });
-    });
+  openImagePopup(image: string): void {
+    this.popupImage = image;
   }
+
+  closeImagePopup(): void {
+    this.popupImage = null;
+  }
+
 }

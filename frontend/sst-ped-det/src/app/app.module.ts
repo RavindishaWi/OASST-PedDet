@@ -40,6 +40,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { SubHeadingComponent } from './sub-heading/sub-heading.component';
 import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { DetectionResultsComponent } from './detection-results/detection-results.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { DetectionResultsComponent } from './detection-results/detection-results
     AboutComponent,
     SubHeadingComponent,
     AdminProfileComponent,
-    DetectionResultsComponent
+    DetectionResultsComponent,
+    ToolbarComponent
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Model } from '../model-table/model-table.component';
 import { ModelService } from '../model.service';
+import { DetectionResultsService } from '../detection-results.service';
 
 @Component({
   selector: 'app-image-selection',
@@ -36,7 +37,8 @@ export class ImageSelectionComponent implements OnInit {
     private location: Location,
     private authService: AuthService,
     private imageService: ImageService,
-    private modelService: ModelService
+    private modelService: ModelService,
+    private detectionResultsService: DetectionResultsService
     ) { }
 
   ngOnInit(): void {
@@ -211,6 +213,8 @@ export class ImageSelectionComponent implements OnInit {
       }).subscribe(
         results => {
           // Handle successful results here
+          console.log(results)
+          this.detectionResultsService.updateDetectionResults(results);
           this.router.navigate(['/detection-results']);
         },
         error => {
