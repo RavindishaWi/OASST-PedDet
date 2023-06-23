@@ -8,7 +8,7 @@ def visualize_attention(image_path, model_weight_path, working_directory):
                model_weight_path]
     subprocess.run(command, check=True, cwd=working_directory)
 
-image_path = 'images/foggy.jpg'
+image_path = 'images/image.jpg'
 model_weight_path = 'checkpoint.pth'
 working_directory = '.'
 visualize_attention(image_path, model_weight_path, working_directory)
