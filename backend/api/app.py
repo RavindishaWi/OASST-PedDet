@@ -22,7 +22,8 @@ import base64
 
 from backend.api.service import get_results
 
-# initialize the Firebase Admin SDKcred = credentials.Certificate('firebase-adminsdk.json')
+# initialize the Firebase Admin SDK
+cred = credentials.Certificate('firebase-adminsdk.json')
 firebase_admin.initialize_app(cred, {
     'storageBucket': 'sst-peddet.appspot.com'
 })
@@ -154,14 +155,14 @@ def detect_objects():
             output_image = encod_image(output_image_path)
 
             # encoded images will be added for a dictionary
-            temp_result = {'combined_attention': output_com_image, 'output_image': output_image}
+            temp_result = {'combined_attention': output_com_image, 'output_image': output_image, 'original_image': image_url}
 
             # adding to final json, this containes original image url from firebase, and the generated output images
             results[image_url] = temp_result
 
     # print(results)
     # sample how the results json will look like
-    # results = {'image1url : {'combined_attention': data, 'output_image': data}, image2url: : {'combined_attention': data, 'output_image': data}...}
+    # results = {'image1url : {'combined_attention': encoded image, 'output_image': encoded image}, image2url: : {'combined_attention': encoded image, 'output_image': encoded image}...}
 
     return jsonify(results)
 
