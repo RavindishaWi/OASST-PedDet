@@ -20,9 +20,10 @@ from werkzeug.exceptions import BadRequest
 import functools
 import base64
 
-from backend.api.service import get_results
+from .service import get_results
 
-# initialize the Firebase Admin SDKcred = credentials.Certificate('firebase-adminsdk.json')
+# initialize the Firebase Admin SDK
+cred = credentials.Certificate('firebase-adminsdk.json')
 firebase_admin.initialize_app(cred, {
     'storageBucket': 'sst-peddet.appspot.com'
 })
