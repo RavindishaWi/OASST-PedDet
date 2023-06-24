@@ -16,7 +16,8 @@ export class ToolbarComponent implements OnInit {
   constructor(
     public router: Router,
     public dialog: MatDialog,
-    private breakpointObserver: BreakpointObserver) { }
+    private breakpointObserver: BreakpointObserver
+    ) { }
 
   ngOnInit(): void {
     this.breakpointObserver.observe([Breakpoints.Small, Breakpoints.Handset]).subscribe(result => {
@@ -24,24 +25,22 @@ export class ToolbarComponent implements OnInit {
     });
   }
 
-  toggleMenu() {
-    this.isToolbarShrunk = !this.isToolbarShrunk;
-  }
-
+  // navigate to home on logo click
   navigateHome() {
     this.router.navigate(['/']);
   }
 
-  // admin login
-  openAdminLoginDialog() {
+  // toggle menu
+  toggleMenu() {
+    this.isToolbarShrunk = !this.isToolbarShrunk;
+  }
+
+  // open admin profile dialog
+  openAdminProfileDialog() {
     const dialogRef = this.dialog.open(AdminProfileComponent, {
       width: '400px',
       // allow closing dialog on clicking outside
       disableClose: false
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
     });
   }
 }
