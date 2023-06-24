@@ -21,6 +21,8 @@ export class ImageSelectionComponent implements OnInit {
   selectedImages: string[] = [];
   selectedModels: Model[] = [];
 
+  files: { file: File, url: string }[] = [];
+
   imageUrl: any;
   uploadedImage: any;
 
@@ -60,8 +62,6 @@ export class ImageSelectionComponent implements OnInit {
     this.page = event;
   }
 
-  files: { file: File, url: string }[] = [];
-
   onFileSelected(event: any): void {
     const file = event.target.files[0];
     if (file.type.match(/image\/*/) == null) {
@@ -74,7 +74,7 @@ export class ImageSelectionComponent implements OnInit {
       });
       return;
     }
-
+  
     if (this.selectedFiles.length >= 3) {
       this.toastr.warning('You can upload a maximum of 3 images.', '', {
         closeButton: true,
@@ -85,7 +85,7 @@ export class ImageSelectionComponent implements OnInit {
       });
       return;
     }
-
+  
     this.errorMessage = '';
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -94,8 +94,19 @@ export class ImageSelectionComponent implements OnInit {
         name: file.name,
         url: reader.result as string
       });
+  
+      // upload file to the server and get the URL of uploaded image
+      const formData = new FormData();
+      formData.append('file', file);
+      this.http.post<{ url: string }>('http://127.0.0.1:5000/api/upload', formData).subscribe(response => {
+        const url = response.url;
+  
+        // Add the uploaded image URL to the imageUrls and selectedImages arrays
+        this.imageUrls.push(url);
+        this.selectedImages.push(url);
+      });
     };
-  }
+  }  
 
   onFileDragOver(event: any): void {
     event.preventDefault();

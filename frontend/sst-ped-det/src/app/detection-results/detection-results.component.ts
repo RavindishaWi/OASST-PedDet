@@ -1,9 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { ModelService } from '../model.service';
-import { ImageService } from '../image.service';
 import { DetectionResultsService } from '../detection-results.service';
-
 
 @Component({
   selector: 'app-detection-results',
@@ -11,16 +7,11 @@ import { DetectionResultsService } from '../detection-results.service';
   styleUrls: ['./detection-results.component.css']
 })
 export class DetectionResultsComponent {
-  selectedModels: any[] = [];
-  selectedImages: any[] = [];
   detectionResults: any[] = [];
 
   popupImage: string | null = null;
 
   constructor(
-    private http: HttpClient,
-    private modelService: ModelService,
-    private imageService: ImageService,
     private detectionResultsService: DetectionResultsService
   ) {}
 

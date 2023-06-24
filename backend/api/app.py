@@ -4,7 +4,7 @@ import urllib
 
 import firebase_admin
 
-from flask import Flask, jsonify, render_template, request, redirect, url_for
+from flask import Flask, jsonify, render_template, request, redirect, url_for, send_from_directory
 from flask_cors import CORS
 from firebase_admin import credentials, firestore, storage, auth
 
@@ -15,12 +15,14 @@ from google.cloud import storage as gcs_storage
 import joblib
 import numpy as np
 from skimage.transform import resize
-import pickle
+import os
 from werkzeug.exceptions import BadRequest
 import functools
 import base64
 
 from .service import get_results
+
+image_urls = []
 
 # initialize the Firebase Admin SDK
 cred = credentials.Certificate('firebase-adminsdk.json')
@@ -166,6 +168,37 @@ def detect_objects():
 
     return jsonify(results)
 
+# Define the path to save and retrieve the uploaded images
+UPLOAD_FOLDER = os.path.join(app.root_path, 'static', 'uploads')
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+@app.route('/api/upload', methods=['POST'])
+def upload_image():
+    if 'file' not in request.files:
+        return {'error': 'No file uploaded'}, 400
+    
+    file = request.files['file']
+    
+    if file.filename == '':
+        return {'error': 'No file selected'}, 400
+    
+    # Save the uploaded file to a desired location on the server
+    file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+    
+    if not os.path.exists(app.config['UPLOAD_FOLDER']):
+        os.makedirs(app.config['UPLOAD_FOLDER'])
+        
+    file.save(file_path)
+    
+    # Generate the URL for the uploaded image
+    base_url = 'http://127.0.0.1:5000'
+    image_url = base_url + '/uploads/' + file.filename
+    
+    return {'url': image_url}, 200
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 def load_image(image_url):
     """
