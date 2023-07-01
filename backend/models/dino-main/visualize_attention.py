@@ -99,6 +99,8 @@ def display_instances(image, mask, fname="test", figsize=(5, 5), blur=False, con
 
 
 def run_bounding_box_detection(combined_attention_map, original_image_path):
+    # cast combined_attention_map to float
+    combined_attention_map = combined_attention_map.astype(np.float64)
     
     # normalize attention map
     combined_attention_map -= combined_attention_map.min()
@@ -266,7 +268,7 @@ if __name__ == '__main__':
     combined_attention_image = cv2.resize(combined_attention_image, original_image_size[::-1])
 
     # run bounding box detection on the combined attention map
-    output_image = run_bounding_box_detection([combined_attention_image], original_image_path)
+    output_image = run_bounding_box_detection(combined_attention_image, original_image_path)
 
     # save output image
     output_image_path = "../../api/results/output_image.jpg"
