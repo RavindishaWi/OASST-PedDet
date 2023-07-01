@@ -98,10 +98,8 @@ def display_instances(image, mask, fname="test", figsize=(5, 5), blur=False, con
     return
 
 
-def run_bounding_box_detection(attention_images, original_image_path):
-    # combine attention maps
-    combined_attention_map = np.mean(attention_images, axis=0)
-
+def run_bounding_box_detection(combined_attention_map, original_image_path):
+    
     # normalize attention map
     combined_attention_map -= combined_attention_map.min()
     combined_attention_map /= combined_attention_map.max()
