@@ -827,3 +827,18 @@ def multi_scale(samples, model):
     v /= 3
     v /= v.norm()
     return v
+
+def calculate_iou(box1, box2):
+    """Calculate intersection over union (IOU) between two bounding boxes with the format [x, y, width, height]."""
+    if len(box1) == 4 and len(box2) == 4:
+        x1, y1, w1, h1 = box1
+        x2, y2, w2, h2 = box2
+
+        intersect_w = max(0, min(x1 + w1, x2 + w2) - max(x1, x2))
+        intersect_h = max(0, min(y1 + h1, y2 + h2) - max(y1, y2))
+        intersect = intersect_w * intersect_h
+
+        union = w1 * h1 + w2 * h2 - intersect
+        return float(intersect) / union
+    else:
+        raise ValueError('Each box should have exactly four elements in the format [x, y, width, height].')
