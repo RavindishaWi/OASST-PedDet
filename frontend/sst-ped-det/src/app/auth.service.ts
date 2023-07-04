@@ -7,7 +7,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 export class AuthService {
   private _isSignedIn: boolean = false;
 
-  constructor(private auth: AngularFireAuth) {
+  constructor(public auth: AngularFireAuth) {
     this.auth.authState.subscribe(user => {
       this._isSignedIn = !!user;
     });

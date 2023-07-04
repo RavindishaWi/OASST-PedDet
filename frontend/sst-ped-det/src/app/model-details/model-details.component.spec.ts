@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ModelDetailsComponent } from './model-details.component';
 
 describe('ModelDetailsComponent', () => {
@@ -17,7 +16,7 @@ describe('ModelDetailsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('should create ModelDetailsComponent', () => {
     expect(component).toBeTruthy();
   });
 });
