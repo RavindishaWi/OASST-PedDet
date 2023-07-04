@@ -1,44 +1,29 @@
-/*add styles for toolbar*/
+/*styles for toolbar*/
 
-.app-content {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-  }
-  
-  .logo-container {
-    cursor: pointer;
-    padding-left: 15px;
-  }
-  
-  .spacer {
-    flex: 1;
-  }
-
-.floating-toolbar .mid-links a {
-    color: white;
-}
-  
 .custom-toolbar {
     display: flex;
     align-items: center;
+    background-color: darkorange;
+    height: 80px;
 }
-  
+
+.logo-container {
+    cursor: pointer;
+    padding-left: 15px;
+}
+
 .mid-links {
     flex-grow: 1;
     display: flex;
     justify-content: center;
 }
-  
+
 .mid-links a {
     margin: 0 10px;
     text-decoration: none;
     position: relative;
 }
-  
+
 .mid-links a::after {
     content: "";
     position: absolute;
@@ -46,15 +31,15 @@
     left: 0;
     width: 100%;
     height: 2px;
-    background-color: #fff;
+    background-color: #ffffff;
     transform: scaleX(0);
     transition: transform 0.3s ease-in-out;
 }
-  
+
 .mid-links a:hover::after {
     transform: scaleX(1);
 }
-  
+
 .right-icons {
     margin-left: auto;
     display: flex;
@@ -64,51 +49,61 @@
     height: 100%;
 }
   
-.transparent-toolbar {
-    background-color: darkorange;
-}
-  
 .right-icons button,
 .right-icons a {
     margin-right: 10px;
 }
-  
-.custom-toolbar {
-    height: 80px;
+
+.full-page-links-container {
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(26, 26, 26, 0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.hamburger-links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    text-align: center;
 }
   
-.floating-toolbar .right-icons a.mat-button svg,
-.floating-toolbar .right-icons button.mat-icon-button mat-icon {
-    vertical-align: middle;
+.large-link {
+    margin: 1em 0;
+    text-align: center;
+    font-size: 2em;
 }
-
-@media (max-width: 768px) {
-    .toolbar {
-      height: 81px;
-    }
-    .toolbar img {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      margin: auto;
-    }
-
-
-@media only screen and (max-width: 1020px) {
-    .links-container {
-        width: 30%;
-    }
+  
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
-      
+  
 @media only screen and (max-width: 768px) {
-    /* hide the links container */
-    .links-container {
+    .toolbar img {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        margin: auto;
+    }
+
+    .full-page-links-container {
+        width: 100%;
         display: none;
     }
-      
-    /* show the hamburger button */
-    .hamburger-icon {
-        display: block;
-    }
-}}
 
+    .hamburger-icon {
+      display: none;
+    }
+}

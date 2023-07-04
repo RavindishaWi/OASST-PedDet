@@ -22,7 +22,6 @@ export class ModelDetailsComponent implements OnInit {
       console.log("description: ", this.description);
       this.http.get<Model>('/model-selection/' + this.modelName).subscribe(model => {
         this.description = model.description;
-        console.log("description: ", this.description);
       });
     });
   }

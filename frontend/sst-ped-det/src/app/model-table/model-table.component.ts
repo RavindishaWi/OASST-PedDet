@@ -1,5 +1,6 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { Component } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -20,17 +21,34 @@ export interface Model {
   templateUrl: './model-table.component.html',
   styleUrls: ['./model-table.component.css']
 })
-export class ModelTableComponent {
+export class ModelTableComponent implements OnInit {
 
   displayedColumns: string[] = ['select', 'modelId', 'modelName', 'backbone', 'description'];
   dataSource = new MatTableDataSource<Model>();
   selection = new SelectionModel<Model>(true, []);
-
   selectedModels: Model[] = [];
 
-  constructor(private http: HttpClient, private router: Router, private modelService: ModelService) { }
+  isSmallScreen = false;
+
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private modelService: ModelService,
+    private breakpointObserver: BreakpointObserver
+    ) { }
 
   ngOnInit() {
+    this.breakpointObserver.observe([
+      Breakpoints.HandsetLandscape,
+      Breakpoints.HandsetPortrait
+    ]).subscribe(result => {
+      if (result.matches) {
+        this.displayedColumns = ['select', 'modelName', 'backbone'];
+      } else {
+        this.displayedColumns = ['select', 'modelId', 'modelName', 'backbone', 'description'];
+      }
+    });
+
     this.fetchData();
     this.http.get<Model[]>('http://127.0.0.1:5000/models').subscribe(models => {
       this.dataSource.data = models;
@@ -60,20 +78,23 @@ export class ModelTableComponent {
     );
   }
 
-  // show details of each model
-  showDetails(model: any) {
-    this.router.navigate(['/model-selection', model.modelName]);
-  }
-
   checkboxClicked(row: Model) {
     if (this.selection.isSelected(row)) {
-      // The checkbox for this row just got selected
+      // checkbox for this row just got selected
       this.selectedModels.push(row);
     } else {
-      // The checkbox for this row just got deselected
+      // checkbox for this row just got deselected
       this.selectedModels = this.selectedModels.filter(model => model.modelId !== row.modelId);
     }
     this.modelService.updateSelectedModels(this.selectedModels);
+  }
+
+  // show details of the model
+  showDetails(model: any) {
+    // show about page if the model is SST-PedDet
+    if (model.modelId === 'model_1') {
+      this.router.navigate(['/about']);
+    }
   }
 
 }
