@@ -133,7 +133,7 @@ def detect_objects():
 
     data = request.get_json()
     image_urls_list = data['imageUrls']
-    model = data.get('model', 'model_3')  # Default to 'model_3' if 'model' not provided
+    model = data.get('modelId', 'model_3')  # Default to 'model_3' if 'model' not provided
     print(model)
 
     print(data)
