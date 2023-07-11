@@ -42,6 +42,8 @@ import { AdminProfileComponent } from './admin-profile/admin-profile.component';
 import { DetectionResultsComponent } from './detection-results/detection-results.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 
+import { AngularFirePerformanceModule, PerformanceMonitoringService } from '@angular/fire/compat/performance';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,6 +82,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
     AngularFireAuthModule,
     FlexLayoutModule,
     AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirePerformanceModule,
     ToastrModule.forRoot(),
     RouterModule.forRoot([
       { path: 'model-selection', component: ModelSelectionComponent },
@@ -87,7 +90,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
       { path: 'evaluation-results', component: EvaluationResultsComponent }
     ]),
   ],
-  providers: [],
+  providers: [PerformanceMonitoringService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

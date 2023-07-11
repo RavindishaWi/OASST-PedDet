@@ -133,9 +133,10 @@ def detect_objects():
 
     data = request.get_json()
     image_urls_list = data['imageUrls']
+    model = data.get('model', 'model_3')  # Default to 'model_3' if 'model' not provided
+    print(model)
 
     print(data)
-
     print(image_urls_list)
 
     results = {}
@@ -143,7 +144,7 @@ def detect_objects():
     for image_url in image_urls_list:
         image = load_image(image_url)
         local_file_path = create_local_temp_file(image_url)
-        status = get_results(local_file_path)
+        status = get_results(local_file_path, model)
         # Will wait till the combined_attention and output image is generated
         if status == 'done':
             print('Image generation successful')

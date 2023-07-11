@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'oasst-ped-det';
+  title = 'sst-ped-det';
 
   // routes that the home page container is excluded from
   excludedRoutes = ['/about', '/evaluation-results', '/model-selection', '/image-selection', '/detection-results'];
