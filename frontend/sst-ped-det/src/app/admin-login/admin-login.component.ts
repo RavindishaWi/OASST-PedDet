@@ -20,7 +20,7 @@ export class AdminLoginComponent implements OnInit {
     public dialogRef: MatDialogRef<AdminLoginComponent>,
     private authService: AuthService,
     private toastr: ToastrService,
-    private http: HttpClient
+    public http: HttpClient
   ) {}
 
   ngOnInit() {}

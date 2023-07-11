@@ -17,7 +17,7 @@ export class DetectionResultsComponent {
 
   ngOnInit(): void {
     this.detectionResultsService.detectionResults$.subscribe(results => {
-      this.detectionResults = Object.keys(results).map(key => ({ image: key, ...results[key] }));
+      this.detectionResults = Object.keys(results).map(key => ({ original_image: key, ...results[key] }));
     });
   }
 
