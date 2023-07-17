@@ -5,7 +5,7 @@
         <h2>Models</h2>
         <!-- buttons to go back to previous page and to proceed -->
         <div class="button-container">
-            <button mat-raised-button class="back-button" href="/">Go Back</button>
+            <button mat-raised-button class="back-button" (click)="goBack()">Go Back</button>
             <button mat-raised-button class="proceed-button" (click)="proceedToModelSelection()">Proceed</button>
         </div>
     </div>

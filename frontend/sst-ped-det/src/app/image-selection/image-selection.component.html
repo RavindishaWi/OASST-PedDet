@@ -1,11 +1,11 @@
+<!-- sub heading -->
+<app-sub-heading [subHeadingText]="'Select images to view detection results'"></app-sub-heading>
+
 <!-- image selection component -->
 <div class="image-selection-container">
-    <!-- sub heading -->
-    <app-sub-heading [subHeadingText]="'Select images to view detection results'"></app-sub-heading>
-
     <!-- buttons to go back to previous page and to proceed -->
     <div class="button-container">
-        <button mat-raised-button class="back-button" href="/">Go Back</button>
+        <button mat-raised-button class="back-button" (click)="goBack()">Go Back</button>
         <button mat-raised-button class="proceed-button" (click)="proceedToDetection()">Proceed</button>
         <input type="file" (change)="addImage($event)" style="display: none" #fileInput>
         <button mat-raised-button class="add-image-button" *ngIf="isUserSignedIn" (click)="fileInput.click()">Add Image</button>
