@@ -147,12 +147,7 @@
   color: #fff;
 }
 
-.back-button {
+.back-button, .add-image-button {
   background-color: #3f5366;
-  color: #ffffff;
-}
-
-.add-image-button {
-  background-color: darkorange;
   color: #ffffff;
 }

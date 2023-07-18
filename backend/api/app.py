@@ -124,6 +124,12 @@ def get_models():
     models_data = [doc_to_dict(doc) for doc in models]
     return json.dumps(models_data)
 
+@app.route('/evaluation-results', methods=['GET'])
+def get_evaluation_results():
+    eval_results_ref = db.collection('evaluation-results')
+    eval_results = eval_results_ref.stream()
+    eval_result_data = [doc_to_dict(doc) for doc in eval_results]
+    return json.dumps(eval_result_data)
 
 @app.route('/api/detect', methods=['POST'])
 def detect_objects():

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -6,31 +7,40 @@ import { MatTableDataSource } from '@angular/material/table';
   templateUrl: './evaluation-results.component.html',
   styleUrls: ['./evaluation-results.component.css']
 })
-export class EvaluationResultsComponent {
-  displayedColumns = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource(ELEMENT_DATA);
+export class EvaluationResultsComponent implements OnInit {
+  constructor(
+    private http: HttpClient
+    ) { }
+
+  displayedColumns: string[] = ['modelID', 'modelName', 'apScore'];
+  dataSource = new MatTableDataSource<Results>();
+
+  ngOnInit() {
+    this.fetchData();
+  }
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
     this.dataSource.filter = filterValue;
   }
+
+  // results from the backend
+  fetchData() {
+    this.http.get<Results[]>('http://127.0.0.1:5000/evaluation-results').subscribe(
+      (data: Results[]) => {
+        this.dataSource.data = data;
+      },
+      error => {
+        console.error('Error:', error);
+      }
+    );
+  }
 }
 
-export interface Element {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+export interface Results {
+  modelID: string;
+  modelName: string;
+  apScore: number;
 }
 
-const ELEMENT_DATA: Element[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'}
-];
